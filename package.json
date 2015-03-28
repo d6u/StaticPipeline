@@ -1,0 +1,27 @@
+{
+  "name": "static-pipeline",
+  "version": "0.0.0",
+  "description": "Static assets processing framework and template helper",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daiweilu/StaticPipeline.git"
+  },
+  "keywords": [
+    "static",
+    "assets",
+    "template",
+    "helper",
+    "hashing",
+    "compile"
+  ],
+  "author": "Daiwei Lu <daiweilu123@gmail.com> (http://daiwei.lu/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daiweilu/StaticPipeline/issues"
+  },
+  "homepage": "https://github.com/daiweilu/StaticPipeline"
+}
