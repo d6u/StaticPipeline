@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Static assets processing framework and template helper",
   "main": "lib/index.js",
+  "bin": {
+    "static-pipeline": "./bin/static-pipeline.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,5 +26,9 @@
   "bugs": {
     "url": "https://github.com/daiweilu/StaticPipeline/issues"
   },
-  "homepage": "https://github.com/daiweilu/StaticPipeline"
+  "homepage": "https://github.com/daiweilu/StaticPipeline",
+  "dependencies": {
+    "bluebird": "^2.9.18",
+    "glob": "^5.0.3"
+  }
 }
