@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/daiweilu/StaticPipeline",
   "dependencies": {
-    "bluebird": "^2.9.18",
-    "glob": "^5.0.3"
+    "bluebird": "2.9.18",
+    "glob": "5.0.3"
   }
 }
