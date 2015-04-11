@@ -57,15 +57,10 @@ Assign `config.tasks` property with an object. In the example above, `scss` is t
     - `src`: path to input file, relative to `Staticfile.js`.
     - `dest`: relative path to output file.
     - `base`: (optional) relative base path for `src`. If defined, `src` can be
-      a globing pattern (details see [node-glob](https://github.com/isaacs/node-
-      glob#glob-primer)) appended after `base`, and `dest` must be a directory.
-      Details see [globing example](#globing-example).
-    - `ext`: (optional) a new extension to replace the input file's extension.
-      Ignored if `base` is not defined.
-- `process`|`function`: will be called with [`pipeline` objects](#pipeline-
-  object) as argument for every `src` file globed in `files` definition.
-- `depends`|`string[]`: (optional) names of other tasks that should run before
-  current one.
+      a globing pattern (details see [node-glob](https://github.com/isaacs/node-glob#glob-primer)) appended after `base`, and `dest` must be a directory. Details see [globing example](#file-globing-examples).
+    - `ext`: (optional) a new extension to replace the input file's extension. Ignored if `base` is not defined.
+- `process`|`function`: will be called with [`pipeline` object](#pipeline-object) as argument for every `src` file globed in `files` definition.
+- `depends`|`string[]`: (optional) names of other tasks that should run before current one.
 
 ### `pipeline` object
 
