@@ -2,7 +2,7 @@
   "name": "static-pipeline",
   "version": "0.0.1",
   "description": "Static assets processing framework and template helper",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "bin": {
     "static-pipeline": "./bin/static-pipeline.js"
   },
@@ -10,7 +10,12 @@
     "test": "testem ci",
     "lint": "eslint bin lib test",
     "watch:test": "testem",
-    "watch:lint": "onchange 'bin' 'lib' 'test' -- npm run --silent lint"
+    "watch:lint": "onchange '**/.eslintrc' 'bin' 'lib' 'test' -- npm run --silent lint",
+    "watch:js": "babel lib -w -d dist",
+    "build:reset": "rm -rfv dist && mkdir -pv dist",
+    "build": "npm run build:reset && babel lib -d dist",
+    "predev": "npm run build",
+    "dev": "npm run watch:js & npm run watch:lint"
   },
   "repository": {
     "type": "git",
@@ -35,6 +40,7 @@
     "glob": "5.0.3"
   },
   "devDependencies": {
+    "babel": "^5.1.8",
     "chai": "2.2.0",
     "eslint": "0.18.0",
     "mocha": "2.2.4",
