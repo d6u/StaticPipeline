@@ -7,7 +7,10 @@
     "static-pipeline": "./bin/static-pipeline.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "testem ci",
+    "lint": "eslint bin lib test",
+    "watch:test": "testem",
+    "watch:lint": "onchange 'bin' 'lib' 'test' -- npm run --silent lint"
   },
   "repository": {
     "type": "git",
@@ -30,5 +33,13 @@
   "dependencies": {
     "bluebird": "2.9.18",
     "glob": "5.0.3"
+  },
+  "devDependencies": {
+    "chai": "2.2.0",
+    "eslint": "0.18.0",
+    "mocha": "2.2.4",
+    "onchange": "1.1.0",
+    "sinon": "1.14.1",
+    "testem": "0.8.0-0"
   }
 }
