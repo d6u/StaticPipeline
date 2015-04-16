@@ -163,14 +163,14 @@
       0,
       11
     ],
-    "consistent-return": 2,
+    "consistent-return": 0,
     "consistent-this": [
       0,
       "that"
     ],
     "curly": [
       2,
-      "all"
+      "multi-line"
     ],
     "default-case": 0,
     "dot-notation": [
