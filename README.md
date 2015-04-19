@@ -97,6 +97,8 @@ Assign `config.tasks` property with an object. In the example above, `scss` is t
 4. `pipeline.write`|`function(path, content)`: write `content` to `path`. Similar to `pipeline.done`, but doesn't indicate current task is finished.
 5. `pipeline.hash`|`function(string) -> Object`: call with the content of `dest`. It return an object. The object has `hashedDest` property that is new destination path with MD5 hash appended before file extension, and `hash` property that is the MD5 hash string.
 6. `pipeline.gitHash`|`function([string|Array, ]callback)`: see [`githash` helper](#githash-helper).
+7. `pipeline.setAsset`|`function(dest, hashedDest)`: see [assets template helper](#assets-template-helper).
+8. `pipeline.assets`|`function([url])`: see [`setAsset`](#setasset).
 
 ### File Globing Examples
 
@@ -151,3 +153,82 @@ Signature: `function([string|Array, ]callback)`
 - With single path, will use provided path to get git commit hash.
 - With array of paths, will get git hash for all the files in array, then select the lastest commit.
 - Callback signature `function(Error, Object)`: **error will occur if one of the paths has changes that are not committed**. Format of object is the same as the return value of `pipeline.hash` function, which returns an object with `hash` and `hashedDest` property.
+
+## Assets Template Helper
+
+### `assets` helper
+
+**`assets` only works with absolute urls**
+
+The `assets` helper maps `dest` to `hashedDest` when you render template so you when you update your static assets, browser cache is busted.
+
+In your template you can use:
+```jade
+head
+  //- Will map `/css/app.css` to `/css/app-202cb962ac59075b964b07152d234b70.css`
+  link(rel='stylesheet' href=assets('/css/app.css'))
+  //- Will do the same thing for `index.js`
+  script(src=assets('/js/index.js'))
+body
+  .img-container
+    //- Can also work on images
+    img(src=assets('/img/logo.svg'))
+```
+
+In order to use `assets` function in template, you have to pass it as locals. For example, if you are using Jade:
+```js
+var jade = require('jade');
+
+module.exports = function(config) {
+
+  config.tasks = {
+    jade: {
+      files: [{
+        src: 'source/index.jade',
+        dest: 'public/index.html',
+      }],
+      process: function(pipeline) {
+        var html = jade.renderFile(pipeline.src, {
+          assets: pipeline.assets
+        });
+        pipeline.done(html);
+      }
+    }
+  };
+
+};
+```
+
+If assets was called directly without any argument. It will return the `assetsMap` object contains all mappings.
+
+### `setAsset`
+
+Put `dest` and `hashedDest` pair into assets map, so next time `assets` see the url relative to `dest` it will auto matically translate it into url relative to `hashedDest`.
+
+### Assets Helper Configuration
+
+```js
+module.exports = function(config) {
+
+  config.options = {
+    assets: {
+      useMap: true,
+      forceMap: false,
+      publicDir: 'public' // required if want to use `assets` helper
+      baseUrl: 'http://my-cdn.com'
+
+      // `public/js/index.js` will become
+      // `http://my-cdn.com/js/index.js`
+      //
+      // If baseUrl is not defined, it will become
+      // `/js/index.js`
+    }
+  };
+
+};
+```
+
+- `useMap`|`boolean`: default `true`, if `false`, `assets` won't translate any url into hashed url.
+- `forceMap`|`boolean`: default `false`, if `true`, when `assets` cannot pair url with a hashed url, it will throw `AssetNotFoundError`. If `false`, it will return the same url that passed in.
+- `publicDir`|`string`: required if you want to use `assets` in your template. When use `setAsset`, the `publicDir` portion of `dest` will be replaced with `baseUrl`.
+- `baseUrl`|`string`: default `''`.
