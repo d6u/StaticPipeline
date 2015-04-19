@@ -1,0 +1,14 @@
+{
+  "launchers": {
+    "Node": {
+      "command": "mocha --compilers js:babel/register"
+    }
+  },
+  "launch_in_dev": ["Node"],
+  "launch_in_ci": ["Node"],
+  "watch_files": [
+    "lib/**/*.js",
+    "bin/**/*.js",
+    "test/**/*.js"
+  ]
+}

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
-var path = require('path');
-var staticPipeline = require('../lib');
-var config = require(path.resolve('Staticfiles'));
+'use strict';
 
-staticPipeline(config);
+var path = require('path');
+var StaticPipeline = require('../dist');
+var configBlock = require(path.resolve('Staticfile'));
+
+new StaticPipeline().config(configBlock).run();
