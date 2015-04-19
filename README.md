@@ -2,18 +2,6 @@
 
 Static Pipeline is not another build system or task runner. It is a static assets processing framework and template helper. You can use whatever assets preprocessor you want.
 
-## Why Use Static Pipeline instead of Gulp or Grunt?
-
-- Build tools and task runners like Gulp and Grunt all depend on their plugins. Plugins prevents you from using the real power of original assets processing tools, e.g. node-sass or browserify. Why bother learning browserify plugin instead of the browserify itself?
-- For static assets to bust browser cache, we often append a hash to the asset's url. The process of hashing assets then render template with hashed url is hard to maintain and inflexible.
-- Static Pipeline is a framework with which you can use whatever processor you want. It will also save each hash assets url. So you can use them with template helper to provide correct assets' urls.
-
-## Install
-
-```sh
-npm install -g static-pipeline
-```
-
 ## Usage
 
 1. Create a `Staticfile.js` in your root directory.
@@ -46,7 +34,44 @@ npm install -g static-pipeline
 
 3. Run `static-pipeline` command line.
 
+## Why Use Static Pipeline instead of Gulp or Grunt?
+
+- Build tools and task runners like Gulp and Grunt all depend on their plugins. Plugins prevents you from using the real power of original assets processing tools, e.g. node-sass or browserify. Why bother learning browserify plugin instead of the browserify itself?
+- For static assets to bust browser cache, we often append a hash to the asset's url. The process of hashing assets then render template with hashed url is hard to maintain and inflexible.
+- Static Pipeline is a framework with which you can use whatever processor you want. It will also save each hash assets url. So you can use them with template helper to provide correct assets' urls.
+
+## Install
+
+```sh
+npm install -g static-pipeline
+```
+
 ## API
+
+```js
+module.exports = function(config) {
+
+  config.tasks = {
+    scss: {
+      files: [{
+        src: 'source/app.scss',
+        dest: 'public/app.css',
+      }],
+      process: function(pipeline) {
+        // We are using node-sass to render scss files to css
+        sass.render({
+          file: pipeline.src,
+          success: function(results) {
+            // Call done with string to save the string to destination path
+            pipeline.done(results.css);
+          }
+        });
+      }
+    }
+  };
+
+};
+```
 
 ### Tasks
 
