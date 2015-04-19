@@ -7,7 +7,7 @@
     "static-pipeline": "./bin/static-pipeline.js"
   },
   "scripts": {
-    "test": "testem ci",
+    "test": "mocha --compilers js:babel/register",
     "lint": "eslint bin lib test",
     "watch:test": "testem",
     "watch:lint": "onchange '**/.eslintrc' 'bin' 'lib' 'test' -- npm run --silent lint",

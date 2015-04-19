@@ -95,7 +95,7 @@ Assign `config.tasks` property with an object. In the example above, `scss` is t
 2. `pipeline.dest`|`string`: absolve path of output file.
 3. `pipeline.done`|`function([path, ][content])`: call this function to indicate process is finished. The first argument is the path of output file, if ignored it will use the `pipeline.dest` as the output path. If called with content string, content will be saved to `path` so you don't have to save output file manually.
 4. `pipeline.write`|`function(path, content)`: write `content` to `path`. Similar to `pipeline.done`, but doesn't indicate current task is finished.
-5. `pipeline.hash`|`function(string) -> Object`: call with the content of `dest`. It return an object. The object has `dest` property that is new `dest` path with MD5 hash appended, and `hash` property that is the MD5 hash string.
+5. `pipeline.hash`|`function(string) -> Object`: call with the content of `dest`. It return an object. The object has `hashedDest` property that is new destination path with MD5 hash appended before file extension, and `hash` property that is the MD5 hash string.
 6. `pipeline.gitHash`|`function([string|Array, ]callback)`: see [`githash` helper](#githash-helper).
 
 ### File Globing Examples
@@ -150,4 +150,4 @@ Signature: `function([string|Array, ]callback)`
 - If called with only `callback`, it will use current `src` file to get git commit hash.
 - With single path, will use provided path to get git commit hash.
 - With array of paths, will get git hash for all the files in array, then select the lastest commit.
-- Callback signature `function(Error, string)`: **error will occur if one of the paths has changes that are not committed**. `string` will be a git commit hash string.
+- Callback signature `function(Error, Object)`: **error will occur if one of the paths has changes that are not committed**. Format of object is the same as the return value of `pipeline.hash` function, which returns an object with `hash` and `hashedDest` property.

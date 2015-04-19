@@ -276,7 +276,10 @@ describe('Task', function () {
             let pipeline = processSpy.getCall(0).args[0];
             expect(pipeline.src).equal('input/path');
             expect(pipeline.dest).equal('output/path');
-            expect(pipeline.hash('123')).equal('202cb962ac59075b964b07152d234b70');
+            expect(pipeline.hash('123')).eql({
+              hash: '202cb962ac59075b964b07152d234b70',
+              hashedDest: 'output/path-202cb962ac59075b964b07152d234b70'
+            });
           })
           .then(done, done);
       });
@@ -301,19 +304,23 @@ describe('Task', function () {
         task.runProcess({src: 'input/path', dest: 'output/path'})
           .then(function () {
             expect(processSpy.callCount).equal(1);
+
             let pipeline = processSpy.getCall(0).args[0];
             expect(pipeline.src).equal('input/path');
             expect(pipeline.dest).equal('output/path');
-            return pipeline.gitHash('filename')
-              .then(function (h) {
-                expect(h).eql({timestamp: '123', hash: 'abc'});
-                expect(execStub.callCount).equal(1);
-                expect(execStub.getCall(0).args).eql([
-                  'git log --pretty="format:%ct-%H" -n 1 -- filename'
-                ]);
-              });
-          })
-          .then(done, done);
+
+            return pipeline.gitHash('filename', (err, h) => {
+              expect(execStub.callCount).equal(1);
+              expect(execStub.getCall(0).args).eql([
+                'git log --pretty="format:%ct-%H" -n 1 -- filename'
+              ]);
+
+              expect(err).equal(null);
+              expect(h).eql({hash: 'abc', hashedDest: 'output/path-abc'});
+
+              done();
+            });
+          });
       });
 
     });
