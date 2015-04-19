@@ -135,7 +135,7 @@
     "no-void": 0,
     "no-var": 0,
     "no-warning-comments": [
-      0,
+      1,
       {
         "terms": [
           "todo",

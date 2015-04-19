@@ -16,8 +16,8 @@ npm install -g static-pipeline
 
 ## Usage
 
-1. Create a `Staticfiles.js` in your root directory.
-2. In `Staticfiles.js`, define tasks by exporting an configuration function:
+1. Create a `Staticfile.js` in your root directory.
+2. In `Staticfile.js`, define tasks by exporting an configuration function:
 
     ```js
     var sass = require('node-sass');
