@@ -1,11 +1,32 @@
 'use strict';
 
 import { expect } from 'chai';
-import { resolveTaskDependencies } from '../lib/util';
+import { parseGitHash, resolveTaskDependencies } from '../lib/util';
 import {
   TaskNotFoundError,
   CircularDependencyError
 } from '../lib/errors';
+
+describe('parseGitHash', function () {
+
+  it('should resolve hash object', function (done) {
+    parseGitHash('package.json')
+      .then(function (obj) {
+        expect(obj).ownProperty('timestamp');
+        expect(obj).ownProperty('hash');
+      })
+      .then(done, done);
+  });
+
+  it('should throw error', function (done) {
+    parseGitHash('not_exist_file.txt')
+      .catch(function (err) {
+        expect(err).instanceof(Error);
+      })
+      .then(done, done);
+  });
+
+});
 
 describe('resolveTaskDependencies', () => {
 

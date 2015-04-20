@@ -8,27 +8,6 @@ import Task from '../lib/task';
 import * as Promisified from '../lib/promisified';
 import * as Util from '../lib/util';
 
-describe('parseGitHash', function () {
-
-  it('should resolve hash object', function (done) {
-    Util.parseGitHash('package.json')
-      .then(function (obj) {
-        expect(obj).ownProperty('timestamp');
-        expect(obj).ownProperty('hash');
-      })
-      .then(done, done);
-  });
-
-  it('should throw error', function (done) {
-    Util.parseGitHash('not_exist_file.txt')
-      .catch(function (err) {
-        expect(err).instanceof(Error);
-      })
-      .then(done, done);
-  });
-
-});
-
 describe('Task', function () {
 
   var sandbox = sinon.sandbox.create();
@@ -42,7 +21,7 @@ describe('Task', function () {
   describe('resolveSrcDest()', function () {
 
     it('should resolve with [{}] if config.files is not defiend', function (done) {
-      var task = new Task({});
+      var task = new Task('', {}, {});
 
       task.resolveSrcDest()
         .then((pairs) => {
@@ -58,12 +37,12 @@ describe('Task', function () {
         return Bluebird.resolve(['globed/path']);
       });
 
-      var task = new Task({
+      var task = new Task('', {
         files: [{
           src: 'input/path',
           dest: 'output/path'
         }]
-      });
+      }, {});
 
       task.resolveSrcDest()
         .then((pairs) => {
@@ -87,13 +66,13 @@ describe('Task', function () {
         ]);
       });
 
-      var task = new Task({
+      var task = new Task(null, {
         files: [{
           base: 'source',
           src: '*.js',
           dest: 'public'
         }]
-      });
+      }, {});
 
       task.resolveSrcDest()
         .then((pairs) => {
@@ -123,14 +102,14 @@ describe('Task', function () {
         ]);
       });
 
-      var task = new Task({
+      var task = new Task('', {
         files: [{
           base: 'source',
           src: '*.coffee',
           dest: 'public',
           ext: 'js'
         }]
-      });
+      }, {});
 
       task.resolveSrcDest()
         .then((pairs) => {
@@ -160,7 +139,10 @@ describe('Task', function () {
         pipeline.done();
       });
 
-      var task = new Task({process: processSpy});
+      var task = new Task('', {process: processSpy}, {
+        setAsset: sandbox.stub(),
+        assets: sandbox.stub()
+      });
 
       task.runProcess({src: 'input/path', dest: 'output/path'})
         .then(function () {
@@ -180,7 +162,10 @@ describe('Task', function () {
           pipeline.done();
         });
 
-        var task = new Task({process: processSpy});
+        var task = new Task('', {process: processSpy}, {
+          setAsset: sandbox.stub(),
+          assets: sandbox.stub()
+        });
 
         task.runProcess({src: 'input/path', dest: 'output/path'})
           .then(function () {
@@ -199,7 +184,13 @@ describe('Task', function () {
           pipeline.done('content');
         });
 
-        var task = new Task({process: processSpy});
+        var task = new Task('', {process: processSpy}, {
+          setAsset: sandbox.stub(),
+          assets: sandbox.stub(),
+          opts: {
+            logging: false
+          }
+        });
 
         task.runProcess({src: 'input/path', dest: 'output/path'})
           .then(function () {
@@ -221,7 +212,13 @@ describe('Task', function () {
           pipeline.done('path', 'content');
         });
 
-        var task = new Task({process: processSpy});
+        var task = new Task('', {process: processSpy}, {
+          setAsset: sandbox.stub(),
+          assets: sandbox.stub(),
+          opts: {
+            logging: false
+          }
+        });
 
         task.runProcess({src: 'input/path', dest: 'output/path'})
           .then(function () {
@@ -241,12 +238,27 @@ describe('Task', function () {
 
     describe('pipeline.write()', function () {
 
-      it('should be the same instance as `writeFile`', function (done) {
+      let writeFileStub;
+
+      afterEach(function () {
+        writeFileStub = null;
+      });
+
+      it('should call `writeFile` internally', function (done) {
+        writeFileStub = sandbox.stub(Util, 'writeFile');
+
         var processSpy = sandbox.spy(function (pipeline) {
+          pipeline.write('path', 'content');
           pipeline.done();
         });
 
-        var task = new Task({process: processSpy});
+        var task = new Task('', {process: processSpy}, {
+          setAsset: sandbox.stub(),
+          assets: sandbox.stub(),
+          opts: {
+            logging: false
+          }
+        });
 
         task.runProcess({src: 'input/path', dest: 'output/path'})
           .then(function () {
@@ -254,7 +266,10 @@ describe('Task', function () {
             let pipeline = processSpy.getCall(0).args[0];
             expect(pipeline.src).equal('input/path');
             expect(pipeline.dest).equal('output/path');
-            expect(pipeline.write).equal(Util.writeFile);
+
+            expect(writeFileStub.callCount).equal(1);
+            expect(writeFileStub.getCall(0).args).eql(['path', 'content']);
+
           })
           .then(done, done);
       });
@@ -268,7 +283,13 @@ describe('Task', function () {
           pipeline.done();
         });
 
-        var task = new Task({process: processSpy});
+        var task = new Task('', {process: processSpy}, {
+          setAsset: sandbox.stub(),
+          assets: sandbox.stub(),
+          opts: {
+            disableHash: false
+          }
+        });
 
         task.runProcess({src: 'input/path', dest: 'output/path'})
           .then(function () {
@@ -290,6 +311,10 @@ describe('Task', function () {
 
       var execStub;
 
+      afterEach(function () {
+        execStub = null;
+      });
+
       it('should exec git command', function (done) {
         var processSpy = sandbox.spy(function (pipeline) {
           pipeline.done();
@@ -299,7 +324,13 @@ describe('Task', function () {
           return Bluebird.resolve(['123-abc']);
         });
 
-        var task = new Task({process: processSpy});
+        var task = new Task('', {process: processSpy}, {
+          setAsset: sandbox.stub(),
+          assets: sandbox.stub(),
+          opts: {
+            disableHash: false
+          }
+        });
 
         task.runProcess({src: 'input/path', dest: 'output/path'})
           .then(function () {

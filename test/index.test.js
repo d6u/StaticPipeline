@@ -11,7 +11,7 @@ describe('StaticPipeline', () => {
 
     it('should configure instance', () => {
       var staticPipeline = new StaticPipeline();
-      expect(staticPipeline.tasks).equal(null);
+      expect(staticPipeline.tasks).eql([]);
 
       var a = {};
       staticPipeline.config(function (config) {
