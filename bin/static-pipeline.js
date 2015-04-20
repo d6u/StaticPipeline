@@ -6,4 +6,6 @@ var path = require('path');
 var StaticPipeline = require('../dist');
 var configBlock = require(path.resolve('Staticfile'));
 
-new StaticPipeline().config(configBlock).run();
+var staticPipeline = new StaticPipeline().config(configBlock);
+staticPipeline.opts.logging = true;
+staticPipeline.run();

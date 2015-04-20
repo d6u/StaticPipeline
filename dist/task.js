@@ -14,6 +14,10 @@ var _Bluebird = require('bluebird');
 
 var _Bluebird2 = _interopRequireWildcard(_Bluebird);
 
+var _chalk = require('chalk');
+
+var _chalk2 = _interopRequireWildcard(_chalk);
+
 var _path = require('path');
 
 var _path2 = _interopRequireWildcard(_path);
@@ -30,19 +34,24 @@ var _glob$fs$exec = require('./promisified');
 
 var _FileNotFoundError$AssetNotFoundError$TaskNotFoundError$CircularDependencyError = require('./errors');
 
-var _writeFile$parseGitHash = require('./util');
+var _writeFile$parseGitHash$createLogger = require('./util');
 
 'use strict';
 
 var EXT_REGEX = /(?:\.[a-z0-9]+)?$/i;
 
 var Task = (function () {
-  function Task(config, staticPipeline) {
+  function Task(name, config, staticPipeline) {
     _classCallCheck(this, Task);
 
+    this.name = name;
     this.config = config;
     this.staticPipeline = staticPipeline;
     this.srcDestPairs = [];
+    this._logger = _writeFile$parseGitHash$createLogger.createLogger(this.name);
+    this.log = function () {
+      if (this.staticPipeline.opts.logging) this._logger.apply(this, arguments);
+    };
   }
 
   _createClass(Task, [{
@@ -94,10 +103,13 @@ var Task = (function () {
               content = path;
               path = pair.dest;
             }
-            _writeFile$parseGitHash.writeFile(path, content);
+            this.write(path, content);
             finish();
           },
-          write: _writeFile$parseGitHash.writeFile,
+          write: function write(path) {
+            self.log('writing to ' + _chalk2['default'].green(path));
+            return _writeFile$parseGitHash$createLogger.writeFile.apply(this, arguments);
+          },
           hash: function hash(str) {
             if (self.staticPipeline.opts.disableHash) {
               return { hash: null, hashedDest: pair.dest };
@@ -113,15 +125,15 @@ var Task = (function () {
             }
             var p = undefined;
             if (!files) {
-              p = _writeFile$parseGitHash.parseGitHash(pair.src);
+              p = _writeFile$parseGitHash$createLogger.parseGitHash(pair.src);
             } else if (Array.isArray(files)) {
               p = _Bluebird2['default'].all(files).map(function (file) {
-                return _writeFile$parseGitHash.parseGitHash(file);
+                return _writeFile$parseGitHash$createLogger.parseGitHash(file);
               }).reduce(function (h, cur) {
                 return h.timestamp > cur.timestamp ? h : cur;
               });
             } else {
-              p = _writeFile$parseGitHash.parseGitHash(files);
+              p = _writeFile$parseGitHash$createLogger.parseGitHash(files);
             }
             return p.then(function (h) {
               var hash = h.hash;
@@ -139,8 +151,11 @@ var Task = (function () {
     value: function run() {
       var _this3 = this;
 
+      this.log('task start');
       return this.resolveSrcDest().each(function (pair) {
         return _this3.runProcess(pair);
+      }).then(function () {
+        return _this3.log('task finish');
       });
     }
   }]);

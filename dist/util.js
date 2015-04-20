@@ -9,14 +9,21 @@ exports.resolveTaskDependencies = resolveTaskDependencies;
 exports.mkdir = mkdir;
 exports.writeFile = writeFile;
 exports.parseGitHash = parseGitHash;
+exports.createLogger = createLogger;
 
 var _path = require('path');
 
 var _path2 = _interopRequireWildcard(_path);
 
+var _chalk = require('chalk');
+
+var _chalk2 = _interopRequireWildcard(_chalk);
+
 var _glob$fs$exec = require('./promisified');
 
 var _TaskNotFoundError$CircularDependencyError = require('./errors');
+
+/*eslint no-console:0*/
 
 'use strict';
 
@@ -86,4 +93,11 @@ function parseGitHash(file) {
     var m = STAT_REGEX.exec(stdout);
     if (m) return { timestamp: m[1], hash: m[2] };else throw new Error('failed to get git hash - stdout: ' + stdout + ', stderr: ' + stderr);
   });
+}
+
+function createLogger(name) {
+  var prefix = '[' + _chalk2['default'].blue(name) + ']';
+  return function (msg) {
+    console.log('' + prefix + ' ' + msg);
+  };
 }

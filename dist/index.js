@@ -84,7 +84,7 @@ var StaticPipeline = (function () {
       return _Bluebird2['default']['try'](function () {
         var queue = _resolveTaskDependencies.resolveTaskDependencies(_this.tasks);
         return _Bluebird2['default'].resolve(queue).each(function (taskName) {
-          return new _Task2['default'](_this.tasks[taskName], _this).run();
+          return new _Task2['default'](taskName, _this.tasks[taskName], _this).run();
         });
       });
     }
