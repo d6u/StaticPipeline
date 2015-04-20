@@ -232,3 +232,17 @@ module.exports = function(config) {
 - `forceMap`|`boolean`: default `false`, if `true`, when `assets` cannot pair url with a hashed url, it will throw `AssetNotFoundError`. If `false`, it will return the same url that passed in.
 - `publicDir`|`string`: required if you want to use `assets` in your template. When use `setAsset`, the `publicDir` portion of `dest` will be replaced with `baseUrl`.
 - `baseUrl`|`string`: default `''`.
+
+## Other Config
+
+```js
+module.exports = function(config) {
+
+  config.options = {
+    // Used in development, if true, all hash function will not return hash but
+    // the original file name instead
+    disableHash: false
+  };
+
+};
+```
