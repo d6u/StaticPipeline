@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/daiweilu/StaticPipeline.svg)](https://travis-ci.org/daiweilu/StaticPipeline)
+[![Coverage Status](https://coveralls.io/repos/daiweilu/StaticPipeline/badge.svg)](https://coveralls.io/r/daiweilu/StaticPipeline)
+
 # Static Pipeline
 
 Static Pipeline is not another build system or task runner. It is a static assets processing framework and template helper. You can use whatever assets preprocessor you want.
