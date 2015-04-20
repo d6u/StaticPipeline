@@ -7,7 +7,8 @@
     "static-pipeline": "./bin/static-pipeline.js"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel/register",
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec --compilers js:babel/register && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "test:simple": "mocha --compilers js:babel/register",
     "lint": "eslint bin lib test",
     "watch:test": "testem",
     "watch:lint": "onchange '**/.eslintrc' 'bin' 'lib' 'test' -- npm run --silent lint",
@@ -44,8 +45,11 @@
   "devDependencies": {
     "babel": "^5.1.8",
     "chai": "2.2.0",
+    "coveralls": "^2.11.2",
     "eslint": "0.18.0",
+    "istanbul": "^0.3.13",
     "mocha": "2.2.4",
+    "mocha-lcov-reporter": "0.0.2",
     "onchange": "1.1.0",
     "sinon": "1.14.1",
     "testem": "0.8.0-0"
