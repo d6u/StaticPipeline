@@ -27,6 +27,8 @@ var _TaskNotFoundError$CircularDependencyError = require('./errors');
 
 'use strict';
 
+var _join = Array.prototype.join;
+
 var GIT_HASH_CMD = 'git log --pretty="format:%ct-%H" -n 1 -- ';
 var STAT_REGEX = /(\d+)-(\w+)/;
 
@@ -97,7 +99,7 @@ function parseGitHash(file) {
 
 function createLogger(name) {
   var prefix = '[' + _chalk2['default'].blue(name) + ']';
-  return function (msg) {
-    console.log('' + prefix + ' ' + msg);
+  return function () {
+    console.log('' + prefix + ' ' + _join.call(arguments, ' '));
   };
 }

@@ -38,7 +38,8 @@
   "dependencies": {
     "bluebird": "2.9.18",
     "chalk": "^1.0.0",
-    "glob": "5.0.3"
+    "glob": "5.0.3",
+    "lodash-node": "^3.7.0"
   },
   "devDependencies": {
     "babel": "^5.1.8",

@@ -26,14 +26,29 @@ var _resolveTaskDependencies = require('./util');
 
 var _AssetNotFoundError$ConfigNotFoundError = require('./errors');
 
+var _merge = require('lodash-node/modern/object/merge');
+
+var _merge2 = _interopRequireWildcard(_merge);
+
 'use strict';
+
+var DEFAULT_OPTS = {
+  logging: false,
+  disableHash: false,
+  assets: {
+    useMap: true,
+    forceMap: false,
+    publicDir: null,
+    baseUrl: null
+  }
+};
 
 var StaticPipeline = (function () {
   function StaticPipeline() {
     _classCallCheck(this, StaticPipeline);
 
-    this.tasks = null;
-    this.opts = null;
+    this.tasks = [];
+    this.opts = {};
     this.assetsMap = {};
   }
 
@@ -44,7 +59,7 @@ var StaticPipeline = (function () {
       configBlock(configObj);
       this.tasks = configObj.tasks;
 
-      this.opts = configObj.options;
+      this.opts = _merge2['default']({}, DEFAULT_OPTS, configObj.options);
       this.opts.assets.useMap = typeof this.opts.assets.useMap === 'undefined' ? true : this.opts.assets.useMap;
 
       return this;
@@ -52,7 +67,7 @@ var StaticPipeline = (function () {
   }, {
     key: 'setAsset',
     value: function setAsset(dest, hashedDest) {
-      if (typeof this.opts.assets.publicDir === 'undefined') {
+      if (this.opts.assets.publicDir == null) {
         throw new _AssetNotFoundError$ConfigNotFoundError.ConfigNotFoundError('assets.publicDir');
       }
       var base = _path2['default'].resolve(this.opts.assets.publicDir);

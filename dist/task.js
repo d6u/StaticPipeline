@@ -91,24 +91,27 @@ var Task = (function () {
 
       return _Bluebird2['default'].fromNode(function (finish) {
         var self = _this2;
+        var operationQueue = [];
 
         _this2.config.process({
           src: pair.src,
           dest: pair.dest,
           done: function done(path, content) {
             if (!path && !content) {
-              return finish();
+              return finish(null, operationQueue);
             }
             if (!content) {
               content = path;
               path = pair.dest;
             }
             this.write(path, content);
-            finish();
+            finish(null, operationQueue);
           },
           write: function write(path) {
             self.log('writing to ' + _chalk2['default'].green(path));
-            return _writeFile$parseGitHash$createLogger.writeFile.apply(this, arguments);
+            var promise = _writeFile$parseGitHash$createLogger.writeFile.apply(this, arguments);
+            operationQueue.push(promise);
+            return promise;
           },
           hash: function hash(str) {
             if (self.staticPipeline.opts.disableHash) {
@@ -120,7 +123,7 @@ var Task = (function () {
           },
           gitHash: function gitHash(files, callback) {
             if (self.staticPipeline.opts.disableHash) {
-              callback({ hash: null, hashedDest: pair.dest });
+              callback(null, { hash: null, hashedDest: pair.dest });
               return;
             }
             var p = undefined;
@@ -142,7 +145,8 @@ var Task = (function () {
             }).nodeify(callback);
           },
           setAsset: _this2.staticPipeline.setAsset.bind(_this2.staticPipeline),
-          assets: _this2.staticPipeline.assets.bind(_this2.staticPipeline)
+          assets: _this2.staticPipeline.assets.bind(_this2.staticPipeline),
+          log: _this2.log.bind(_this2)
         });
       });
     }
@@ -153,7 +157,7 @@ var Task = (function () {
 
       this.log('task start');
       return this.resolveSrcDest().each(function (pair) {
-        return _this3.runProcess(pair);
+        return _this3.runProcess(pair).all();
       }).then(function () {
         return _this3.log('task finish');
       });
