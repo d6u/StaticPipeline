@@ -1,20 +1,20 @@
 'use strict';
 
 import { expect } from 'chai';
-import sinon from 'sinon';
 import StaticPipeline from '../lib/index';
 
 describe('StaticPipeline', () => {
-  describe('config()', () => {
 
-    // let sandbox = sinon.sandbox.create();
+  describe('_configTasks()', () => {
 
     it('should configure instance', () => {
-      var staticPipeline = new StaticPipeline();
-      expect(staticPipeline.tasks).eql([]);
+      var staticPipeline = {
+        tasks: []
+      };
 
       var a = {};
-      staticPipeline.config(function (config) {
+
+      StaticPipeline.prototype._configTasks.call(staticPipeline, function (config) {
         config.tasks = a;
       });
 
@@ -22,4 +22,5 @@ describe('StaticPipeline', () => {
     });
 
   });
+
 });
