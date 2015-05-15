@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/daiweilu/StaticPipeline.svg)](https://travis-ci.org/daiweilu/StaticPipeline)
+[![Build Status](https://travis-ci.org/d6u/StaticPipeline.svg?branch=master)](https://travis-ci.org/d6u/StaticPipeline)
 [![Coverage Status](https://coveralls.io/repos/daiweilu/StaticPipeline/badge.svg)](https://coveralls.io/r/daiweilu/StaticPipeline)
 
 # Static Pipeline
