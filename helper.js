@@ -7,6 +7,7 @@ var AssetNotFoundError = require('./dist/errors').AssetNotFoundError;
  * @param  {Object} assetMap - A dictionary contains mapping between url and hashed url
  * @param  {Object} [opts]
  * @param  {bool} [opts.strict=true] - When true, throw error if no match found in assetMap
+ * @param  {bool} [opts.disable=false] - If true, will return passed in url directly
  * @param  {string} [opts.host=''] - A string to prepend before hashed url
  * @return {Function}
  */
@@ -16,6 +17,10 @@ module.exports = function (assetMap, opts) {
   var i;
 
   opts = opts || {};
+
+  if (opts.disable) return function (url) {
+    return url;
+  };
 
   if (typeof opts.strict === 'undefined') opts.strict = true;
 

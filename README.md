@@ -265,4 +265,5 @@ app.locals.assets = assets;
 - `assetMap` object contains url to hashed url map
 - `options`
     - `options.strict=true` When true, throw error if url cannot be found in `assetMap`
+    - `options.disable=false` If true, will return passed in url directly
     - `options.host=''` A string prepended before all hashed url
