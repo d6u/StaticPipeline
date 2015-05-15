@@ -1,7 +1,5 @@
 'use strict';
 
-var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
@@ -11,17 +9,19 @@ exports.writeFile = writeFile;
 exports.parseGitHash = parseGitHash;
 exports.createLogger = createLogger;
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 var _path = require('path');
 
-var _path2 = _interopRequireWildcard(_path);
+var _path2 = _interopRequireDefault(_path);
 
 var _chalk = require('chalk');
 
-var _chalk2 = _interopRequireWildcard(_chalk);
+var _chalk2 = _interopRequireDefault(_chalk);
 
-var _glob$fs$exec = require('./promisified');
+var _promisified = require('./promisified');
 
-var _TaskNotFoundError$CircularDependencyError = require('./errors');
+var _errors = require('./errors');
 
 /*eslint no-console:0*/
 
@@ -41,11 +41,11 @@ function resolveTaskDependencies(config) {
 
   function fillQueue(task, dependings) {
     if (tasks.indexOf(task) === -1) {
-      throw new _TaskNotFoundError$CircularDependencyError.TaskNotFoundError(task);
+      throw new _errors.TaskNotFoundError(task);
     }
 
     if (dependings.indexOf(task) > -1) {
-      throw new _TaskNotFoundError$CircularDependencyError.CircularDependencyError(dependings);
+      throw new _errors.CircularDependencyError(dependings);
     }
 
     if (queue.indexOf(task) === -1) {
@@ -69,10 +69,10 @@ function resolveTaskDependencies(config) {
 }
 
 function mkdir(dirname) {
-  return _glob$fs$exec.fs.mkdirAsync(dirname).error(function (err) {
+  return _promisified.fs.mkdirAsync(dirname).error(function (err) {
     if (err.cause.code === 'ENOENT') {
       return mkdir(_path2['default'].dirname(dirname)).then(function () {
-        return _glob$fs$exec.fs.mkdirAsync(dirname);
+        return _promisified.fs.mkdirAsync(dirname);
       });
     }
     throw err;
@@ -80,10 +80,10 @@ function mkdir(dirname) {
 }
 
 function writeFile(filename, data, callback) {
-  return _glob$fs$exec.fs.writeFileAsync(filename, data).error(function (err) {
+  return _promisified.fs.writeFileAsync(filename, data).error(function (err) {
     if (err.cause.code === 'ENOENT') {
       return mkdir(_path2['default'].dirname(filename)).then(function () {
-        return _glob$fs$exec.fs.writeFileAsync(filename, data);
+        return _promisified.fs.writeFileAsync(filename, data);
       });
     }
     throw err;
@@ -91,7 +91,7 @@ function writeFile(filename, data, callback) {
 }
 
 function parseGitHash(file) {
-  return _glob$fs$exec.exec('' + GIT_HASH_CMD + '' + file).spread(function (stdout, stderr) {
+  return (0, _promisified.exec)('' + GIT_HASH_CMD + '' + file).spread(function (stdout, stderr) {
     var m = STAT_REGEX.exec(stdout);
     if (m) return { timestamp: m[1], hash: m[2] };else throw new Error('failed to get git hash - stdout: ' + stdout + ', stderr: ' + stderr);
   });

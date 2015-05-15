@@ -1,30 +1,30 @@
 'use strict';
 
-var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _Bluebird = require('bluebird');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _Bluebird2 = _interopRequireWildcard(_Bluebird);
+var _bluebird = require('bluebird');
 
-var _globOriginal = require('glob');
+var _bluebird2 = _interopRequireDefault(_bluebird);
 
-var _globOriginal2 = _interopRequireWildcard(_globOriginal);
+var _glob = require('glob');
 
-var _fsOriginal = require('fs');
+var _glob2 = _interopRequireDefault(_glob);
 
-var _fsOriginal2 = _interopRequireWildcard(_fsOriginal);
+var _fs = require('fs');
 
-var _execOriginal = require('child_process');
+var _fs2 = _interopRequireDefault(_fs);
+
+var _child_process = require('child_process');
 
 'use strict';
 
-var glob = _Bluebird2['default'].promisify(_globOriginal2['default']);
+var glob = _bluebird2['default'].promisify(_glob2['default']);
 exports.glob = glob;
-var fs = _Bluebird2['default'].promisifyAll(_fsOriginal2['default']);
+var fs = _bluebird2['default'].promisifyAll(_fs2['default']);
 exports.fs = fs;
-var exec = _Bluebird2['default'].promisify(_execOriginal.exec);
+var exec = _bluebird2['default'].promisify(_child_process.exec);
 exports.exec = exec;

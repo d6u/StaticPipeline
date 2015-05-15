@@ -1,40 +1,40 @@
 'use strict';
 
-var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
-
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _Bluebird = require('bluebird');
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _Bluebird2 = _interopRequireWildcard(_Bluebird);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _bluebird = require('bluebird');
+
+var _bluebird2 = _interopRequireDefault(_bluebird);
 
 var _chalk = require('chalk');
 
-var _chalk2 = _interopRequireWildcard(_chalk);
+var _chalk2 = _interopRequireDefault(_chalk);
 
 var _path = require('path');
 
-var _path2 = _interopRequireWildcard(_path);
+var _path2 = _interopRequireDefault(_path);
 
 var _url = require('url');
 
-var _url2 = _interopRequireWildcard(_url);
+var _url2 = _interopRequireDefault(_url);
 
 var _crypto = require('crypto');
 
-var _crypto2 = _interopRequireWildcard(_crypto);
+var _crypto2 = _interopRequireDefault(_crypto);
 
-var _glob$fs$exec = require('./promisified');
+var _promisified = require('./promisified');
 
-var _FileNotFoundError$AssetNotFoundError$TaskNotFoundError$CircularDependencyError = require('./errors');
+var _errors = require('./errors');
 
-var _writeFile$parseGitHash$createLogger = require('./util');
+var _util = require('./util');
 
 'use strict';
 
@@ -48,7 +48,7 @@ var Task = (function () {
     this.config = config;
     this.staticPipeline = staticPipeline;
     this.srcDestPairs = [];
-    this._logger = _writeFile$parseGitHash$createLogger.createLogger(this.name);
+    this._logger = (0, _util.createLogger)(this.name);
     this.log = function () {
       if (this.staticPipeline.opts.logging) this._logger.apply(this, arguments);
     };
@@ -59,9 +59,9 @@ var Task = (function () {
     value: function resolveSrcDest() {
       var _this = this;
 
-      return _Bluebird2['default'].resolve(this.config.files || []).map(function (def) {
+      return _bluebird2['default'].resolve(this.config.files || []).map(function (def) {
         if (def.base) {
-          return _glob$fs$exec.glob(_path2['default'].resolve(def.base, def.src)).map(function (src) {
+          return (0, _promisified.glob)(_path2['default'].resolve(def.base, def.src)).map(function (src) {
             var dest = src.replace(_path2['default'].resolve(def.base), _path2['default'].resolve(def.dest));
 
             if (def.ext) {
@@ -72,8 +72,8 @@ var Task = (function () {
           });
         }
         var globPath = _path2['default'].resolve(def.src);
-        return _glob$fs$exec.glob(globPath).then(function (files) {
-          if (!files.length) throw new _FileNotFoundError$AssetNotFoundError$TaskNotFoundError$CircularDependencyError.FileNotFoundError(globPath);
+        return (0, _promisified.glob)(globPath).then(function (files) {
+          if (!files.length) throw new _errors.FileNotFoundError(globPath);
           return [{ src: files[0], dest: _path2['default'].resolve(def.dest) }];
         });
       }).then(function (pathPairsArr) {
@@ -89,7 +89,7 @@ var Task = (function () {
     value: function runProcess(pair) {
       var _this2 = this;
 
-      return _Bluebird2['default'].fromNode(function (finish) {
+      return _bluebird2['default'].fromNode(function (finish) {
         var self = _this2;
         var operationQueue = [];
 
@@ -109,7 +109,7 @@ var Task = (function () {
           },
           write: function write(path) {
             self.log('writing to ' + _chalk2['default'].green(path));
-            var promise = _writeFile$parseGitHash$createLogger.writeFile.apply(this, arguments);
+            var promise = _util.writeFile.apply(this, arguments);
             operationQueue.push(promise);
             return promise;
           },
@@ -128,15 +128,15 @@ var Task = (function () {
             }
             var p = undefined;
             if (!files) {
-              p = _writeFile$parseGitHash$createLogger.parseGitHash(pair.src);
+              p = (0, _util.parseGitHash)(pair.src);
             } else if (Array.isArray(files)) {
-              p = _Bluebird2['default'].all(files).map(function (file) {
-                return _writeFile$parseGitHash$createLogger.parseGitHash(file);
+              p = _bluebird2['default'].all(files).map(function (file) {
+                return (0, _util.parseGitHash)(file);
               }).reduce(function (h, cur) {
                 return h.timestamp > cur.timestamp ? h : cur;
               });
             } else {
-              p = _writeFile$parseGitHash$createLogger.parseGitHash(files);
+              p = (0, _util.parseGitHash)(files);
             }
             return p.then(function (h) {
               var hash = h.hash;

@@ -37,21 +37,21 @@
   },
   "homepage": "https://github.com/daiweilu/StaticPipeline",
   "dependencies": {
-    "bluebird": "2.9.18",
-    "chalk": "^1.0.0",
-    "glob": "5.0.3",
-    "lodash-node": "^3.7.0"
+    "bluebird": "2.9.25",
+    "chalk": "1.0.0",
+    "glob": "5.0.6",
+    "lodash-node": "3.8.0"
   },
   "devDependencies": {
-    "babel": "^5.1.8",
-    "chai": "2.2.0",
+    "babel": "5.4.2",
+    "chai": "2.3.0",
     "coveralls": "^2.11.2",
-    "eslint": "0.18.0",
-    "istanbul": "^0.3.13",
-    "mocha": "2.2.4",
+    "eslint": "0.21.0",
+    "istanbul": "0.3.14",
+    "mocha": "2.2.5",
     "mocha-lcov-reporter": "0.0.2",
     "onchange": "1.1.0",
     "sinon": "1.14.1",
-    "testem": "0.8.0-0"
+    "testem": "0.8.3"
   }
 }
