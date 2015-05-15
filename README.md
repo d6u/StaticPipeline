@@ -249,3 +249,20 @@ module.exports = function(config) {
 
 };
 ```
+
+## Express.js Template Helper
+
+```js
+var assetMap = require('./assets.json');
+var assets = require('static-pipeline/helper')(assetMap, options);
+
+// http://expressjs.com/4x/api.html#app.locals
+app.locals.assets = assets;
+```
+
+`static-pipeline/helper` accepts two arguments.
+
+- `assetMap` object contains url to hashed url map
+- `options`
+    - `options.strict=true` When true, throw error if url cannot be found in `assetMap`
+    - `options.host=''` A string prepended before all hashed url
