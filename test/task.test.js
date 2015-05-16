@@ -1,5 +1,3 @@
-'use strict';
-
 import { expect } from 'chai';
 import sinon from 'sinon';
 import Bluebird from 'bluebird';
@@ -37,7 +35,7 @@ describe('Task', function () {
         return Bluebird.resolve(['globed/path']);
       });
 
-      var task = new Task('', {
+      let task = new Task('', {
         files: [{
           src: 'input/path',
           dest: 'output/path'
@@ -66,7 +64,7 @@ describe('Task', function () {
         ]);
       });
 
-      var task = new Task(null, {
+      let task = new Task(null, {
         files: [{
           base: 'source',
           src: '*.js',
@@ -102,7 +100,7 @@ describe('Task', function () {
         ]);
       });
 
-      var task = new Task('', {
+      let task = new Task('', {
         files: [{
           base: 'source',
           src: '*.coffee',
@@ -135,11 +133,11 @@ describe('Task', function () {
   describe('runProcess()', function () {
 
     it('should assign `src` and `dest`', function (done) {
-      var processSpy = sandbox.spy(function (pipeline) {
+      let processSpy = sandbox.spy(function (pipeline) {
         pipeline.done();
       });
 
-      var task = new Task('', {process: processSpy}, {
+      let task = new Task('', {process: processSpy}, {
         setAsset: sandbox.stub(),
         assets: sandbox.stub()
       });
@@ -199,7 +197,7 @@ describe('Task', function () {
             expect(pipeline.src).equal('input/path');
             expect(pipeline.dest).equal('output/path');
             expect(writeFileStub.callCount).equal(1);
-            var writeFileArgs = writeFileStub.getCall(0).args;
+            let writeFileArgs = writeFileStub.getCall(0).args;
             expect(writeFileArgs[0]).equal('output/path');
             expect(writeFileArgs[1]).equal('content');
           })
@@ -227,7 +225,7 @@ describe('Task', function () {
             expect(pipeline.src).equal('input/path');
             expect(pipeline.dest).equal('output/path');
             expect(writeFileStub.callCount).equal(1);
-            var writeFileArgs = writeFileStub.getCall(0).args;
+            let writeFileArgs = writeFileStub.getCall(0).args;
             expect(writeFileArgs[0]).equal('path');
             expect(writeFileArgs[1]).equal('content');
           })
@@ -247,12 +245,12 @@ describe('Task', function () {
       it('should call `writeFile` internally', function (done) {
         writeFileStub = sandbox.stub(Util, 'writeFile');
 
-        var processSpy = sandbox.spy(function (pipeline) {
+        let processSpy = sandbox.spy(function (pipeline) {
           pipeline.write('path', 'content');
           pipeline.done();
         });
 
-        var task = new Task('', {process: processSpy}, {
+        let task = new Task('', {process: processSpy}, {
           setAsset: sandbox.stub(),
           assets: sandbox.stub(),
           opts: {
@@ -324,7 +322,7 @@ describe('Task', function () {
           return Bluebird.resolve(['123-abc']);
         });
 
-        var task = new Task('', {process: processSpy}, {
+        let task = new Task('', {process: processSpy}, {
           setAsset: sandbox.stub(),
           assets: sandbox.stub(),
           opts: {
