@@ -1,32 +1,8 @@
 import { expect } from 'chai';
 import { parseGitHash, resolveTaskDependencies } from '../lib/util';
-import {
-  TaskNotFoundError,
-  CircularDependencyError
-} from '../lib/errors';
+import { TaskNotFoundError, CircularDependencyError } from '../lib/errors';
 
-describe('parseGitHash', function () {
-
-  it('should resolve hash object', function (done) {
-    parseGitHash('package.json')
-      .then(function (obj) {
-        expect(obj).ownProperty('timestamp');
-        expect(obj).ownProperty('hash');
-      })
-      .then(done, done);
-  });
-
-  it('should throw error', function (done) {
-    parseGitHash('not_exist_file.txt')
-      .catch(function (err) {
-        expect(err).instanceof(Error);
-      })
-      .then(done, done);
-  });
-
-});
-
-describe('resolveTaskDependencies', () => {
+describe('resolveTaskDependencies()', () => {
 
   it('should return tasks queue by depended order', () => {
     expect(resolveTaskDependencies({
@@ -38,6 +14,18 @@ describe('resolveTaskDependencies', () => {
         depends: ['autoprefixer', 'scss']
       }
     })).eql(['scss', 'autoprefixer', 'uglify']);
+  });
+
+  it('should resolve only for target task', () => {
+    expect(resolveTaskDependencies({
+      scss: {},
+      autoprefixer: {
+        depends: ['scss']
+      },
+      uglify: {
+        depends: ['autoprefixer', 'scss']
+      }
+    }, 'autoprefixer')).eql(['scss', 'autoprefixer']);
   });
 
   it('should throw TaskNotFoundError', done => {
@@ -71,6 +59,27 @@ describe('resolveTaskDependencies', () => {
       expect(err).instanceof(CircularDependencyError);
       done();
     }
+  });
+
+});
+
+describe('parseGitHash', function () {
+
+  it('should resolve hash object', function (done) {
+    parseGitHash('package.json')
+      .then(function (obj) {
+        expect(obj).ownProperty('timestamp');
+        expect(obj).ownProperty('hash');
+      })
+      .then(done, done);
+  });
+
+  it('should throw error', function (done) {
+    parseGitHash('not_exist_file.txt')
+      .catch(function (err) {
+        expect(err).instanceof(Error);
+      })
+      .then(done, done);
   });
 
 });
