@@ -254,7 +254,7 @@ module.exports = function(config) {
 
 ```js
 var assetMap = require('./assets.json');
-var assets = require('static-pipeline/helper')(assetMap, options);
+var assets = require('static-pipeline/helper-factory')(assetMap, options);
 
 // http://expressjs.com/4x/api.html#app.locals
 app.locals.assets = assets;
@@ -266,4 +266,4 @@ app.locals.assets = assets;
 - `options`
     - `options.strict=true` When true, throw error if url cannot be found in `assetMap`
     - `options.disable=false` If true, will return passed in url directly
-    - `options.host=''` A string prepended before all hashed url
+    - `options.baseUrl=''` A string prepended before all hashed url

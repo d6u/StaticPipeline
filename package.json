@@ -7,7 +7,8 @@
     "static-pipeline": "./bin/static-pipeline.js"
   },
   "scripts": {
-    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec --compilers js:babel/register; cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js; rm -rf ./coverage",
+    "test": "babel-node node_modules/.bin/isparta cover --report html --report lcovonly node_modules/.bin/_mocha -- -R spec; cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test:mocha": "mocha -R spec --compilers js:babel/register",
     "test:simple": "mocha --compilers js:babel/register",
     "lint": "eslint bin lib test",
     "watch:test": "testem",
@@ -37,17 +38,17 @@
   },
   "homepage": "https://github.com/daiweilu/StaticPipeline",
   "dependencies": {
+    "babel": "5.4.3",
     "bluebird": "2.9.25",
     "chalk": "1.0.0",
     "glob": "5.0.6",
-    "lodash-node": "3.8.0"
+    "lodash": "3.8.0"
   },
   "devDependencies": {
-    "babel": "5.4.2",
     "chai": "2.3.0",
     "coveralls": "^2.11.2",
-    "eslint": "0.21.0",
-    "istanbul": "0.3.14",
+    "eslint": "0.21.1",
+    "isparta": "3.0.3",
     "mocha": "2.2.5",
     "mocha-lcov-reporter": "0.0.2",
     "onchange": "1.1.0",
