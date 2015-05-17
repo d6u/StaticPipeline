@@ -20,8 +20,6 @@ var _fs2 = _interopRequireDefault(_fs);
 
 var _child_process = require('child_process');
 
-'use strict';
-
 var glob = _bluebird2['default'].promisify(_glob2['default']);
 exports.glob = glob;
 var fs = _bluebird2['default'].promisifyAll(_fs2['default']);

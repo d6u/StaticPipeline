@@ -1,12 +1,23 @@
+/*eslint no-console:0*/
+
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+
+/**
+ * Take formated task config object and return an array with tasks orderred
+ * by their dependency graph
+ * @param {Object} config - Object with each key as taskName and each value's
+ *                         `depends` property as indicator of dependency
+ * @param {string} [target] - A target task name. If provided, will resolve
+ *                          dependencies only for target task.
+ * @returns {string[]} Array of taskNames
+ */
 exports.resolveTaskDependencies = resolveTaskDependencies;
 exports.mkdir = mkdir;
 exports.writeFile = writeFile;
-exports.parseGitHash = parseGitHash;
 exports.createLogger = createLogger;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -23,19 +34,9 @@ var _promisified = require('./promisified');
 
 var _errors = require('./errors');
 
-/*eslint no-console:0*/
-
-'use strict';
-
 var _join = Array.prototype.join;
-
-var GIT_HASH_CMD = 'git log --pretty="format:%ct-%H" -n 1 -- ';
-var STAT_REGEX = /(\d+)-(\w+)/;
-
-function resolveTaskDependencies(config) {
-  var tasks = Object.keys(config).filter(function (key) {
-    return key[0] !== '_';
-  });
+function resolveTaskDependencies(config, target) {
+  var tasks = Object.keys(config);
   var remainingTasks = tasks.slice(0);
   var queue = [];
 
@@ -61,8 +62,12 @@ function resolveTaskDependencies(config) {
     }
   }
 
-  while (remainingTasks.length) {
-    fillQueue(remainingTasks[0], []);
+  if (target) {
+    fillQueue(target, []);
+  } else {
+    while (remainingTasks.length) {
+      fillQueue(remainingTasks[0], []);
+    }
   }
 
   return queue;
@@ -88,13 +93,6 @@ function writeFile(filename, data, callback) {
     }
     throw err;
   }).nodeify(callback);
-}
-
-function parseGitHash(file) {
-  return (0, _promisified.exec)('' + GIT_HASH_CMD + '' + file).spread(function (stdout, stderr) {
-    var m = STAT_REGEX.exec(stdout);
-    if (m) return { timestamp: m[1], hash: m[2] };else throw new Error('failed to get git hash - stdout: ' + stdout + ', stderr: ' + stderr);
-  });
 }
 
 function createLogger(name) {
