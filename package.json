@@ -7,11 +7,8 @@
     "static-pipeline": "./bin/static-pipeline.js"
   },
   "scripts": {
-    "test": "babel-node node_modules/.bin/isparta cover --report html --report lcovonly node_modules/.bin/_mocha -- -R spec; cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "test:mocha": "mocha -R spec --compilers js:babel/register",
-    "test:simple": "mocha --compilers js:babel/register",
+    "test": "mocha --compilers js:babel/register",
     "lint": "eslint bin lib test",
-    "watch:test": "testem",
     "watch:lint": "onchange '**/.eslintrc' 'bin' 'lib' 'test' -- npm run --silent lint",
     "watch:js": "babel lib -w -d dist",
     "build:reset": "rm -rfv dist && mkdir -pv dist",
@@ -46,13 +43,10 @@
   },
   "devDependencies": {
     "chai": "2.3.0",
-    "coveralls": "^2.11.2",
     "eslint": "0.21.1",
     "isparta": "3.0.3",
     "mocha": "2.2.5",
-    "mocha-lcov-reporter": "0.0.2",
     "onchange": "1.1.0",
-    "sinon": "1.14.1",
-    "testem": "0.8.3"
+    "sinon": "1.14.1"
   }
 }
