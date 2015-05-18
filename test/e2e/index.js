@@ -1,4 +1,4 @@
-var StaticPipeline = require('../../lib');
+import StaticPipeline from '../../lib';
 
 var roll = new StaticPipeline({
   task1: {
