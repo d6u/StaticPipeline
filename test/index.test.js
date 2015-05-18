@@ -1,20 +1,20 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import StaticPipeline from '../lib/index';
+import { StaticPipelineBase } from '../lib/index';
 
 describe('StaticPipeline ~ _processTask()', function () {
 
   describe('pipeline', function () {
 
-    const _processTask = StaticPipeline.prototype._processTask;
+    const _processTask = StaticPipelineBase.prototype._processTask;
 
     it('should have desired properties', function (done) {
       let iterator = _processTask.bind({
         opts: {},
-        setAsset() {
+        _setAsset() {
           return 'setAsset';
         },
-        makeAssetHelper() {
+        _makeAssetHelper() {
           return 'assets';
         }
       })({
@@ -27,10 +27,10 @@ describe('StaticPipeline ~ _processTask()', function () {
         expect(pipeline.log).equal('randomObject');
         expect(pipeline.setAsset()).equal('setAsset');
         expect(pipeline.assets).equal('assets');
-        expect(pipeline.gitHash).not.equal(undefined);
-        expect(pipeline.done).not.equal(undefined);
-        expect(pipeline.write).not.equal(undefined);
-        expect(pipeline.hash).not.equal(undefined);
+        expect(pipeline.gitHash).not.undefined;
+        expect(pipeline.done).not.undefined;
+        expect(pipeline.write).not.undefined;
+        expect(pipeline.hash).not.undefined;
 
         done();
       }, {
@@ -52,10 +52,10 @@ describe('StaticPipeline ~ _processTask()', function () {
         let writeStub;
         let iterator = _processTask.bind({
           opts: {},
-          setAsset() {
+          _setAsset() {
             return 'setAsset';
           },
-          makeAssetHelper() {
+          _makeAssetHelper() {
             return 'assets';
           }
         })({
@@ -81,10 +81,10 @@ describe('StaticPipeline ~ _processTask()', function () {
         let writeStub;
         let iterator = _processTask.bind({
           opts: {},
-          setAsset() {
+          _setAsset() {
             return 'setAsset';
           },
-          makeAssetHelper() {
+          _makeAssetHelper() {
             return 'assets';
           }
         })({
@@ -111,10 +111,10 @@ describe('StaticPipeline ~ _processTask()', function () {
         let writeStub;
         let iterator = _processTask.bind({
           opts: {},
-          setAsset() {
+          _setAsset() {
             return 'setAsset';
           },
-          makeAssetHelper() {
+          _makeAssetHelper() {
             return 'assets';
           }
         })({
@@ -151,10 +151,10 @@ describe('StaticPipeline ~ _processTask()', function () {
         let writeStub;
         let iterator = _processTask.bind({
           opts: {},
-          setAsset() {
+          _setAsset() {
             return 'setAsset';
           },
-          makeAssetHelper() {
+          _makeAssetHelper() {
             return 'assets';
           }
         })({
