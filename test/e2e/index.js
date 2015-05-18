@@ -1,3 +1,5 @@
+/*eslint no-console:0*/
+
 import StaticPipeline from '../../lib';
 
 var roll = new StaticPipeline({

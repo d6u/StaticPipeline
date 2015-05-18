@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { StaticPipelineBase } from '../lib/index';
+import StaticPipeline from '../lib/index';
 
 describe('StaticPipeline ~ _processTask()', function () {
 
   describe('pipeline', function () {
 
-    const _processTask = StaticPipelineBase.prototype._processTask;
+    const _processTask = StaticPipeline.prototype._processTask;
 
     it('should have desired properties', function (done) {
       let iterator = _processTask.bind({
