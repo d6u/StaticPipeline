@@ -36,8 +36,6 @@ describe('StaticPipeline ~ _processTask()', function () {
       }, {
         log: 'randomObject'
       });
-
-      iterator.next();
     });
 
     describe('done()', function () {
@@ -70,7 +68,7 @@ describe('StaticPipeline ~ _processTask()', function () {
           log: 'randomObject'
         });
 
-        iterator.next().value
+        iterator
           .then(function () {
             expect(writeStub.callCount).equal(0);
           })
@@ -99,7 +97,7 @@ describe('StaticPipeline ~ _processTask()', function () {
           log: 'randomObject'
         });
 
-        iterator.next().value
+        iterator
           .then(function () {
             expect(writeStub.callCount).equal(1);
             expect(writeStub.getCall(0).args).eql(['/home/destination.js', 'content']);
@@ -129,7 +127,7 @@ describe('StaticPipeline ~ _processTask()', function () {
           log: 'randomObject'
         });
 
-        iterator.next().value
+        iterator
           .then(function () {
             expect(writeStub.callCount).equal(1);
             expect(writeStub.getCall(0).args).eql(['path', 'content']);
@@ -175,7 +173,7 @@ describe('StaticPipeline ~ _processTask()', function () {
           log: 'randomObject'
         });
 
-        iterator.next().value
+        iterator
           .then(function () {
             expect(writeStub.callCount).equal(0);
           })

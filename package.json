@@ -7,12 +7,12 @@
     "static-pipeline": "./bin/static-pipeline.js"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel/register",
+    "test": "babel-node --optional es7.asyncFunctions node_modules/mocha/bin/_mocha",
     "lint": "eslint bin lib test",
     "watch:lint": "onchange '**/.eslintrc' 'bin' 'lib' 'test' -- npm run --silent lint",
-    "watch:js": "babel lib -w -d dist",
+    "watch:js": "babel --optional es7.asyncFunctions lib -w -d dist",
     "build:reset": "rm -rfv dist && mkdir -pv dist",
-    "build": "npm run build:reset && babel lib -d dist",
+    "build": "npm run build:reset && babel --optional es7.asyncFunctions lib -d dist",
     "predev": "npm run build",
     "dev": "npm run watch:js & npm run watch:lint"
   },
@@ -42,6 +42,7 @@
     "lodash": "3.8.0"
   },
   "devDependencies": {
+    "babel-eslint": "^3.1.5",
     "chai": "2.3.0",
     "chokidar": "1.0.1",
     "eslint": "0.21.1",
