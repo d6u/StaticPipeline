@@ -9,7 +9,7 @@ describe('StaticPipeline ~ _processTask()', function () {
     const _processTask = StaticPipeline.prototype._processTask;
 
     it('should have desired properties', function (done) {
-      let iterator = _processTask.bind({
+      _processTask.bind({
         opts: {},
         _setAsset() {
           return 'setAsset';
