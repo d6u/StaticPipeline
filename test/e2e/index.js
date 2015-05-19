@@ -5,10 +5,10 @@ import StaticPipeline from '../../lib';
 var roll = new StaticPipeline({
   task1: {
     files: [
-      {
-        src: 'lib/index.js',
-        dest: 'distL/index.js'
-      },
+      // {
+      //   src: 'lib/index.js',
+      //   dest: 'distL/index.js'
+      // },
       {
         base: 'src',
         src: '**/*.js',

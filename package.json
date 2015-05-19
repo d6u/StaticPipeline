@@ -39,7 +39,8 @@
     "bluebird": "2.9.25",
     "chalk": "1.0.0",
     "glob": "5.0.6",
-    "lodash": "3.8.0"
+    "lodash": "3.8.0",
+    "minimatch": "2.0.8"
   },
   "devDependencies": {
     "babel-eslint": "^3.1.5",
