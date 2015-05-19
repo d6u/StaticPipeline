@@ -6,19 +6,24 @@ var roll = new StaticPipeline({
   task1: {
     files: [
       {
-        base: 'lib',
+        src: 'lib/index.js',
+        dest: 'distL/index.js'
+      },
+      {
+        base: 'src',
         src: '**/*.js',
-        dest: 'dist'
+        dest: 'distS'
       }
     ],
     process: function (pipeline) {
-      console.log(`==> ${pipeline.src}`);
-      pipeline.watch(['bin/static-pipeline.js']);
+      console.log(`==> ${pipeline.src} -> ${pipeline.dest}`);
+      pipeline.watch();
       pipeline.done();
     }
   }
 }, {
-  logging: true
+  logging: true,
+  workingDir: __dirname
 });
 
 roll.start();
