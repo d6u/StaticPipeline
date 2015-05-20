@@ -17,7 +17,6 @@ var roll = new StaticPipeline({
     ],
     process: function (pipeline) {
       console.log(`==> ${pipeline.src} -> ${pipeline.dest}`);
-      throw new Error('whatever');
       pipeline.watch();
       pipeline.done();
     }
