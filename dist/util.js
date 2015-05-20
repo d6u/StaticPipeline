@@ -1,4 +1,4 @@
-/*eslint no-console:0*/
+/*eslint no-console:0 no-process-exit:0*/
 
 'use strict';
 
@@ -19,6 +19,7 @@ exports.resolveTaskDependencies = resolveTaskDependencies;
 exports.mkdir = mkdir;
 exports.writeFile = writeFile;
 exports.createLogger = createLogger;
+exports.throwError = throwError;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -100,4 +101,9 @@ function createLogger(name) {
   return function () {
     console.log('' + prefix + ' ' + _join.call(arguments, ' '));
   };
+}
+
+function throwError(err) {
+  console.log(err.stack);
+  process.exit(1);
 }

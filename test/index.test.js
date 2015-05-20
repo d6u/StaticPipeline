@@ -9,12 +9,12 @@ describe('StaticPipeline ~ _processTask()', function () {
     const _processTask = StaticPipeline.prototype._processTask;
 
     it('should have desired properties', function (done) {
-      let iterator = _processTask.bind({
+      _processTask.bind({
         opts: {},
-        setAsset() {
+        _setAsset() {
           return 'setAsset';
         },
-        makeAssetHelper() {
+        _makeAssetHelper() {
           return 'assets';
         }
       })({
@@ -27,17 +27,15 @@ describe('StaticPipeline ~ _processTask()', function () {
         expect(pipeline.log).equal('randomObject');
         expect(pipeline.setAsset()).equal('setAsset');
         expect(pipeline.assets).equal('assets');
-        expect(pipeline.gitHash).not.equal(undefined);
-        expect(pipeline.done).not.equal(undefined);
-        expect(pipeline.write).not.equal(undefined);
-        expect(pipeline.hash).not.equal(undefined);
+        expect(pipeline.gitHash).not.undefined;
+        expect(pipeline.done).not.undefined;
+        expect(pipeline.write).not.undefined;
+        expect(pipeline.hash).not.undefined;
 
         done();
       }, {
         log: 'randomObject'
       });
-
-      iterator.next();
     });
 
     describe('done()', function () {
@@ -52,10 +50,10 @@ describe('StaticPipeline ~ _processTask()', function () {
         let writeStub;
         let iterator = _processTask.bind({
           opts: {},
-          setAsset() {
+          _setAsset() {
             return 'setAsset';
           },
-          makeAssetHelper() {
+          _makeAssetHelper() {
             return 'assets';
           }
         })({
@@ -70,7 +68,7 @@ describe('StaticPipeline ~ _processTask()', function () {
           log: 'randomObject'
         });
 
-        iterator.next().value
+        iterator
           .then(function () {
             expect(writeStub.callCount).equal(0);
           })
@@ -81,10 +79,10 @@ describe('StaticPipeline ~ _processTask()', function () {
         let writeStub;
         let iterator = _processTask.bind({
           opts: {},
-          setAsset() {
+          _setAsset() {
             return 'setAsset';
           },
-          makeAssetHelper() {
+          _makeAssetHelper() {
             return 'assets';
           }
         })({
@@ -99,7 +97,7 @@ describe('StaticPipeline ~ _processTask()', function () {
           log: 'randomObject'
         });
 
-        iterator.next().value
+        iterator
           .then(function () {
             expect(writeStub.callCount).equal(1);
             expect(writeStub.getCall(0).args).eql(['/home/destination.js', 'content']);
@@ -111,10 +109,10 @@ describe('StaticPipeline ~ _processTask()', function () {
         let writeStub;
         let iterator = _processTask.bind({
           opts: {},
-          setAsset() {
+          _setAsset() {
             return 'setAsset';
           },
-          makeAssetHelper() {
+          _makeAssetHelper() {
             return 'assets';
           }
         })({
@@ -129,7 +127,7 @@ describe('StaticPipeline ~ _processTask()', function () {
           log: 'randomObject'
         });
 
-        iterator.next().value
+        iterator
           .then(function () {
             expect(writeStub.callCount).equal(1);
             expect(writeStub.getCall(0).args).eql(['path', 'content']);
@@ -151,10 +149,10 @@ describe('StaticPipeline ~ _processTask()', function () {
         let writeStub;
         let iterator = _processTask.bind({
           opts: {},
-          setAsset() {
+          _setAsset() {
             return 'setAsset';
           },
-          makeAssetHelper() {
+          _makeAssetHelper() {
             return 'assets';
           }
         })({
@@ -175,7 +173,7 @@ describe('StaticPipeline ~ _processTask()', function () {
           log: 'randomObject'
         });
 
-        iterator.next().value
+        iterator
           .then(function () {
             expect(writeStub.callCount).equal(0);
           })

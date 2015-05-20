@@ -6,10 +6,6 @@ Object.defineProperty(exports, '__esModule', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _bluebird = require('bluebird');
-
-var _bluebird2 = _interopRequireDefault(_bluebird);
-
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
@@ -45,10 +41,11 @@ require('babel/polyfill');
  *                                   relative paths are resolved.
  * @returns {Promise} Resolve to array of plain objects with `src` and `dest` properties.
  */
-exports['default'] = _bluebird2['default'].coroutine(regeneratorRuntime.mark(function callee$0$0(fileDef, opts) {
+
+exports['default'] = function callee$0$0(fileDef, opts) {
   var results, _sourceGlob, _srcs, baseDir, destDir, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, srcRelative, src, dest, sourceGlob, srcs;
 
-  return regeneratorRuntime.wrap(function callee$0$0$(context$1$0) {
+  return regeneratorRuntime.async(function callee$0$0$(context$1$0) {
     while (1) switch (context$1$0.prev = context$1$0.next) {
       case 0:
         if (!fileDef.base) {
@@ -87,9 +84,9 @@ exports['default'] = _bluebird2['default'].coroutine(regeneratorRuntime.mark(fun
 
       case 15:
         context$1$0.prev = 15;
-        context$1$0.t6 = context$1$0['catch'](11);
+        context$1$0.t5 = context$1$0['catch'](11);
         _didIteratorError = true;
-        _iteratorError = context$1$0.t6;
+        _iteratorError = context$1$0.t5;
 
       case 19:
         context$1$0.prev = 19;
@@ -143,6 +140,7 @@ exports['default'] = _bluebird2['default'].coroutine(regeneratorRuntime.mark(fun
       case 'end':
         return context$1$0.stop();
     }
-  }, callee$0$0, this, [[11, 15, 19, 27], [20,, 22, 26]]);
-}));
+  }, null, this, [[11, 15, 19, 27], [20,, 22, 26]]);
+};
+
 module.exports = exports['default'];
