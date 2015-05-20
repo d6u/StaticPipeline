@@ -22,8 +22,16 @@ require('babel/polyfill');
 function parseGitHash(file) {
   return (0, _promisified.exec)('' + GIT_HASH_CMD + '' + file).spread(function (stdout, stderr) {
     var m = STAT_REGEX.exec(stdout);
-    if (m) return { timestamp: m[1], hash: m[2] };
-    throw new Error('failed to get git hash - stdout: ' + stdout + ', stderr: ' + stderr);
+    if (m) {
+      return {
+        timestamp: m[1],
+        hash: m[2]
+      };
+    }
+
+    var msg = 'failed to get git hash - stdout: ' + stdout + '; stderr: ' + stderr;
+
+    throw new Error(msg);
   });
 }
 
