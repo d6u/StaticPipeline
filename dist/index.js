@@ -601,7 +601,9 @@ var StaticPipeline = (function () {
               };
 
               processBlock(pipeline);
-            }).all()['return'](watched ? watchList : [])['catch'](function (err) {
+            }).all().then(function () {
+              return watched ? watchList : [];
+            })['catch'](function (err) {
               if (err.stack) {
                 console.log(err.stack);
               } else {
