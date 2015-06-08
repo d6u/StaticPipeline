@@ -14,7 +14,8 @@
     "build:reset": "rm -rfv dist && mkdir -pv dist",
     "build": "npm run build:reset && babel --optional es7.asyncFunctions lib -d dist",
     "predev": "npm run build",
-    "dev": "npm run watch:js & npm run watch:lint"
+    "dev": "npm run watch:js & npm run watch:lint",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
