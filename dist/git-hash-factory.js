@@ -20,7 +20,7 @@ var EXT_REGEX = /(?:\.[a-z0-9]+)?$/i;
 require('babel/polyfill');
 
 function parseGitHash(file) {
-  return (0, _promisified.exec)('' + GIT_HASH_CMD + '' + file).spread(function (stdout, stderr) {
+  return (0, _promisified.exec)('' + GIT_HASH_CMD + file).spread(function (stdout, stderr) {
     var m = STAT_REGEX.exec(stdout);
     if (m) {
       return {
@@ -63,10 +63,9 @@ exports['default'] = function (opts) {
    */
   return function (files, callback) {
     if (!callback) {
-      var _temp = [null, files];
-      files = _temp[0];
-      callback = _temp[1];
-      _temp;
+      var _ref = [null, files];
+      files = _ref[0];
+      callback = _ref[1];
     }
 
     return _bluebird2['default'].coroutine(regeneratorRuntime.mark(function callee$2$0() {

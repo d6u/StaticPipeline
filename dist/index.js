@@ -4,11 +4,11 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _slicedToArray(arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -197,7 +197,7 @@ var StaticPipeline = (function () {
 
             task = _step.value;
             context$2$0.next = 10;
-            return this._runTask(task);
+            return regeneratorRuntime.awrap(this._runTask(task));
 
           case 10:
             _iteratorNormalCompletion = true;
@@ -263,7 +263,7 @@ var StaticPipeline = (function () {
             }
 
             context$2$0.next = 6;
-            return this._dispatchTask({}, task.process, { log: log, taskName: taskName, isGlob: false });
+            return regeneratorRuntime.awrap(this._dispatchTask({}, task.process, { log: log, taskName: taskName, isGlob: false }));
 
           case 6:
             context$2$0.next = 70;
@@ -291,9 +291,9 @@ var StaticPipeline = (function () {
             fileObjs = undefined;
             context$2$0.prev = 17;
             context$2$0.next = 20;
-            return (0, _resolveFile2['default'])(file, {
+            return regeneratorRuntime.awrap((0, _resolveFile2['default'])(file, {
               workingDir: this.opts.workingDir
-            });
+            }));
 
           case 20:
             fileObjs = context$2$0.sent;
@@ -302,9 +302,9 @@ var StaticPipeline = (function () {
 
           case 23:
             context$2$0.prev = 23;
-            context$2$0.t1 = context$2$0['catch'](17);
+            context$2$0.t0 = context$2$0['catch'](17);
 
-            (0, _util.throwError)(context$2$0.t1);
+            (0, _util.throwError)(context$2$0.t0);
 
           case 26:
             isGlob = typeof file.base !== 'undefined';
@@ -322,7 +322,7 @@ var StaticPipeline = (function () {
 
             fileObj = _step3.value;
             context$2$0.next = 36;
-            return this._dispatchTask(fileObj, task.process, { log: log, taskName: taskName, isGlob: isGlob });
+            return regeneratorRuntime.awrap(this._dispatchTask(fileObj, task.process, { log: log, taskName: taskName, isGlob: isGlob }));
 
           case 36:
             _iteratorNormalCompletion3 = true;
@@ -335,9 +335,9 @@ var StaticPipeline = (function () {
 
           case 41:
             context$2$0.prev = 41;
-            context$2$0.t2 = context$2$0['catch'](30);
+            context$2$0.t1 = context$2$0['catch'](30);
             _didIteratorError3 = true;
-            _iteratorError3 = context$2$0.t2;
+            _iteratorError3 = context$2$0.t1;
 
           case 45:
             context$2$0.prev = 45;
@@ -374,9 +374,9 @@ var StaticPipeline = (function () {
 
           case 58:
             context$2$0.prev = 58;
-            context$2$0.t3 = context$2$0['catch'](11);
+            context$2$0.t2 = context$2$0['catch'](11);
             _didIteratorError2 = true;
-            _iteratorError2 = context$2$0.t3;
+            _iteratorError2 = context$2$0.t2;
 
           case 62:
             context$2$0.prev = 62;
@@ -441,9 +441,9 @@ var StaticPipeline = (function () {
                 while (1) switch (context$3$0.prev = context$3$0.next) {
                   case 0:
                     context$3$0.next = 2;
-                    return self._processTask(fileObj, taskProcess, {
+                    return regeneratorRuntime.awrap(self._processTask(fileObj, taskProcess, {
                       log: opts.log
-                    });
+                    }));
 
                   case 2:
                     watchList = context$3$0.sent;
@@ -471,7 +471,7 @@ var StaticPipeline = (function () {
 
             self = this;
             context$2$0.next = 4;
-            return runBlock();
+            return regeneratorRuntime.awrap(runBlock());
 
           case 4:
           case 'end':
@@ -501,7 +501,7 @@ var StaticPipeline = (function () {
             watchList = fileObj.src ? [fileObj.src] : [];
             watched = false;
             context$2$0.next = 5;
-            return _bluebird2['default'].fromNode(function (resolver) {
+            return regeneratorRuntime.awrap(_bluebird2['default'].fromNode(function (resolver) {
 
               var promiseQueue = [];
 
@@ -523,10 +523,9 @@ var StaticPipeline = (function () {
                   if (!path && !content) return resolver(null, promiseQueue);
 
                   if (!content) {
-                    var _temp = [fileObj.dest, path];
-                    path = _temp[0];
-                    content = _temp[1];
-                    _temp;
+                    var _ref = [fileObj.dest, path];
+                    path = _ref[0];
+                    content = _ref[1];
                   }
 
                   this.write(path, content);
@@ -609,7 +608,7 @@ var StaticPipeline = (function () {
               } else {
                 console.log(err);
               }
-            });
+            }));
 
           case 5:
             return context$2$0.abrupt('return', context$2$0.sent);
@@ -772,7 +771,7 @@ var StaticPipeline = (function () {
             found = true;
 
             context$2$0.next = 13;
-            return detail.runBlock();
+            return regeneratorRuntime.awrap(detail.runBlock());
 
           case 13:
             _iteratorNormalCompletion7 = true;
@@ -785,9 +784,9 @@ var StaticPipeline = (function () {
 
           case 18:
             context$2$0.prev = 18;
-            context$2$0.t4 = context$2$0['catch'](4);
+            context$2$0.t0 = context$2$0['catch'](4);
             _didIteratorError7 = true;
-            _iteratorError7 = context$2$0.t4;
+            _iteratorError7 = context$2$0.t0;
 
           case 22:
             context$2$0.prev = 22;

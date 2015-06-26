@@ -56,7 +56,7 @@ exports['default'] = function callee$0$0(fileDef, opts) {
         results = [];
         _sourceGlob = _path2['default'].resolve(opts.workingDir, fileDef.base, fileDef.src);
         context$1$0.next = 5;
-        return (0, _promisified.glob)(_sourceGlob);
+        return regeneratorRuntime.awrap((0, _promisified.glob)(_sourceGlob));
 
       case 5:
         _srcs = context$1$0.sent;
@@ -84,9 +84,9 @@ exports['default'] = function callee$0$0(fileDef, opts) {
 
       case 15:
         context$1$0.prev = 15;
-        context$1$0.t5 = context$1$0['catch'](11);
+        context$1$0.t0 = context$1$0['catch'](11);
         _didIteratorError = true;
-        _iteratorError = context$1$0.t5;
+        _iteratorError = context$1$0.t0;
 
       case 19:
         context$1$0.prev = 19;
@@ -118,7 +118,7 @@ exports['default'] = function callee$0$0(fileDef, opts) {
       case 28:
         sourceGlob = _path2['default'].resolve(opts.workingDir, fileDef.src);
         context$1$0.next = 31;
-        return (0, _promisified.glob)(sourceGlob);
+        return regeneratorRuntime.awrap((0, _promisified.glob)(sourceGlob));
 
       case 31:
         srcs = context$1$0.sent;

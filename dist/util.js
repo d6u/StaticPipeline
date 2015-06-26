@@ -5,16 +5,6 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-
-/**
- * Take formated task config object and return an array with tasks orderred
- * by their dependency graph
- * @param {Object} config - Object with each key as taskName and each value's
- *                         `depends` property as indicator of dependency
- * @param {string} [target] - A target task name. If provided, will resolve
- *                          dependencies only for target task.
- * @returns {string[]} Array of taskNames
- */
 exports.resolveTaskDependencies = resolveTaskDependencies;
 exports.mkdir = mkdir;
 exports.writeFile = writeFile;
@@ -36,6 +26,17 @@ var _promisified = require('./promisified');
 var _errors = require('./errors');
 
 var _join = Array.prototype.join;
+
+/**
+ * Take formated task config object and return an array with tasks orderred
+ * by their dependency graph
+ * @param {Object} config - Object with each key as taskName and each value's
+ *                         `depends` property as indicator of dependency
+ * @param {string} [target] - A target task name. If provided, will resolve
+ *                          dependencies only for target task.
+ * @returns {string[]} Array of taskNames
+ */
+
 function resolveTaskDependencies(config, target) {
   var tasks = Object.keys(config);
   var remainingTasks = tasks.slice(0);
@@ -99,7 +100,7 @@ function writeFile(filename, data, callback) {
 function createLogger(name) {
   var prefix = '[' + _chalk2['default'].blue(name) + ']';
   return function () {
-    console.log('' + prefix + ' ' + _join.call(arguments, ' '));
+    console.log(prefix + ' ' + _join.call(arguments, ' '));
   };
 }
 
