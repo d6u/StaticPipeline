@@ -565,7 +565,7 @@ var StaticPipeline = (function () {
                  * @return {void}
                  */
                 watch: function watch() {
-                  var files = arguments[0] === undefined ? [] : arguments[0];
+                  var files = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
 
                   if (!Array.isArray(files)) {
                     throw new Error('watch arguments must be an array');
