@@ -1,16 +1,22 @@
 'use strict';
 
+var _createClass = require('babel-runtime/helpers/create-class')['default'];
+
+var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
+
+var _slicedToArray = require('babel-runtime/helpers/sliced-to-array')['default'];
+
+var _Map = require('babel-runtime/core-js/map')['default'];
+
+var _regeneratorRuntime = require('babel-runtime/regenerator')['default'];
+
+var _getIterator = require('babel-runtime/core-js/get-iterator')['default'];
+
+var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-
-var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 var _bluebird = require('bluebird');
 
@@ -63,8 +69,6 @@ var _gitHashFactory2 = _interopRequireDefault(_gitHashFactory);
 var _watchMap = require('./watch-map');
 
 var _watchMap2 = _interopRequireDefault(_watchMap);
-
-require('babel/polyfill');
 
 var DEFAULT_OPTS = {
   logging: false,
@@ -150,7 +154,7 @@ var StaticPipeline = (function () {
        *
        * @type {Map}
        */
-      this._watchGlobMap = new Map();
+      this._watchGlobMap = new _Map();
 
       this._watcher = _chokidar2['default'].watch(null, {
         persistent: true,
@@ -179,7 +183,7 @@ var StaticPipeline = (function () {
     value: function _run(target) {
       var queue, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, task;
 
-      return regeneratorRuntime.async(function _run$(context$2$0) {
+      return _regeneratorRuntime.async(function _run$(context$2$0) {
         while (1) switch (context$2$0.prev = context$2$0.next) {
           case 0:
             queue = (0, _util.resolveTaskDependencies)(this.tasks, target);
@@ -187,7 +191,7 @@ var StaticPipeline = (function () {
             _didIteratorError = false;
             _iteratorError = undefined;
             context$2$0.prev = 4;
-            _iterator = queue[Symbol.iterator]();
+            _iterator = _getIterator(queue);
 
           case 6:
             if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
@@ -197,7 +201,7 @@ var StaticPipeline = (function () {
 
             task = _step.value;
             context$2$0.next = 10;
-            return regeneratorRuntime.awrap(this._runTask(task));
+            return _regeneratorRuntime.awrap(this._runTask(task));
 
           case 10:
             _iteratorNormalCompletion = true;
@@ -249,7 +253,7 @@ var StaticPipeline = (function () {
     value: function _runTask(taskName) {
       var task, log, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, file, fileObjs, isGlob, _iteratorNormalCompletion3, _didIteratorError3, _iteratorError3, _iterator3, _step3, fileObj;
 
-      return regeneratorRuntime.async(function _runTask$(context$2$0) {
+      return _regeneratorRuntime.async(function _runTask$(context$2$0) {
         while (1) switch (context$2$0.prev = context$2$0.next) {
           case 0:
             task = this.tasks[taskName];
@@ -263,7 +267,7 @@ var StaticPipeline = (function () {
             }
 
             context$2$0.next = 6;
-            return regeneratorRuntime.awrap(this._dispatchTask({}, task.process, { log: log, taskName: taskName, isGlob: false }));
+            return _regeneratorRuntime.awrap(this._dispatchTask({}, task.process, { log: log, taskName: taskName, isGlob: false }));
 
           case 6:
             context$2$0.next = 70;
@@ -274,7 +278,7 @@ var StaticPipeline = (function () {
             _didIteratorError2 = false;
             _iteratorError2 = undefined;
             context$2$0.prev = 11;
-            _iterator2 = task.files[Symbol.iterator]();
+            _iterator2 = _getIterator(task.files);
 
           case 13:
             if (_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done) {
@@ -291,7 +295,7 @@ var StaticPipeline = (function () {
             fileObjs = undefined;
             context$2$0.prev = 17;
             context$2$0.next = 20;
-            return regeneratorRuntime.awrap((0, _resolveFile2['default'])(file, {
+            return _regeneratorRuntime.awrap((0, _resolveFile2['default'])(file, {
               workingDir: this.opts.workingDir
             }));
 
@@ -312,7 +316,7 @@ var StaticPipeline = (function () {
             _didIteratorError3 = false;
             _iteratorError3 = undefined;
             context$2$0.prev = 30;
-            _iterator3 = fileObjs[Symbol.iterator]();
+            _iterator3 = _getIterator(fileObjs);
 
           case 32:
             if (_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done) {
@@ -322,7 +326,7 @@ var StaticPipeline = (function () {
 
             fileObj = _step3.value;
             context$2$0.next = 36;
-            return regeneratorRuntime.awrap(this._dispatchTask(fileObj, task.process, { log: log, taskName: taskName, isGlob: isGlob }));
+            return _regeneratorRuntime.awrap(this._dispatchTask(fileObj, task.process, { log: log, taskName: taskName, isGlob: isGlob }));
 
           case 36:
             _iteratorNormalCompletion3 = true;
@@ -432,16 +436,16 @@ var StaticPipeline = (function () {
      */
     value: function _dispatchTask(fileObj, taskProcess, opts) {
       var self, runBlock;
-      return regeneratorRuntime.async(function _dispatchTask$(context$2$0) {
+      return _regeneratorRuntime.async(function _dispatchTask$(context$2$0) {
         while (1) switch (context$2$0.prev = context$2$0.next) {
           case 0:
             runBlock = function runBlock() {
               var watchList, hasError;
-              return regeneratorRuntime.async(function runBlock$(context$3$0) {
+              return _regeneratorRuntime.async(function runBlock$(context$3$0) {
                 while (1) switch (context$3$0.prev = context$3$0.next) {
                   case 0:
                     context$3$0.next = 2;
-                    return regeneratorRuntime.awrap(self._processTask(fileObj, taskProcess, {
+                    return _regeneratorRuntime.awrap(self._processTask(fileObj, taskProcess, {
                       log: opts.log
                     }));
 
@@ -471,7 +475,7 @@ var StaticPipeline = (function () {
 
             self = this;
             context$2$0.next = 4;
-            return regeneratorRuntime.awrap(runBlock());
+            return _regeneratorRuntime.awrap(runBlock());
 
           case 4:
           case 'end':
@@ -494,14 +498,14 @@ var StaticPipeline = (function () {
      */
     value: function _processTask(fileObj, processBlock, opts) {
       var self, watchList, watched;
-      return regeneratorRuntime.async(function _processTask$(context$2$0) {
+      return _regeneratorRuntime.async(function _processTask$(context$2$0) {
         while (1) switch (context$2$0.prev = context$2$0.next) {
           case 0:
             self = this;
             watchList = fileObj.src ? [fileObj.src] : [];
             watched = false;
             context$2$0.next = 5;
-            return regeneratorRuntime.awrap(_bluebird2['default'].fromNode(function (resolver) {
+            return _regeneratorRuntime.awrap(_bluebird2['default'].fromNode(function (resolver) {
 
               var promiseQueue = [];
 
@@ -574,7 +578,7 @@ var StaticPipeline = (function () {
                   var _iteratorError4 = undefined;
 
                   try {
-                    for (var _iterator4 = files[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                    for (var _iterator4 = _getIterator(files), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
                       var file = _step4.value;
 
                       var absPath = _path2['default'].resolve(file);
@@ -657,7 +661,7 @@ var StaticPipeline = (function () {
         var _iteratorError5 = undefined;
 
         try {
-          for (var _iterator5 = oldFiles[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+          for (var _iterator5 = _getIterator(oldFiles), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
             var file = _step5.value;
             var _iteratorNormalCompletion6 = true;
             var _didIteratorError6 = false;
@@ -665,7 +669,7 @@ var StaticPipeline = (function () {
 
             try {
 
-              for (var _iterator6 = this._watcherMap[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+              for (var _iterator6 = _getIterator(this._watcherMap), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
                 var _step6$value = _slicedToArray(_step6.value, 3);
 
                 var task = _step6$value[0];
@@ -744,7 +748,7 @@ var StaticPipeline = (function () {
     value: function _fileChanged(file) {
       var found, _iteratorNormalCompletion7, _didIteratorError7, _iteratorError7, _iterator7, _step7, _step7$value, detail;
 
-      return regeneratorRuntime.async(function _fileChanged$(context$2$0) {
+      return _regeneratorRuntime.async(function _fileChanged$(context$2$0) {
         while (1) switch (context$2$0.prev = context$2$0.next) {
           case 0:
             found = false;
@@ -752,7 +756,7 @@ var StaticPipeline = (function () {
             _didIteratorError7 = false;
             _iteratorError7 = undefined;
             context$2$0.prev = 4;
-            _iterator7 = this._watcherMap[Symbol.iterator]();
+            _iterator7 = _getIterator(this._watcherMap);
 
           case 6:
             if (_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done) {
@@ -771,7 +775,7 @@ var StaticPipeline = (function () {
             found = true;
 
             context$2$0.next = 13;
-            return regeneratorRuntime.awrap(detail.runBlock());
+            return _regeneratorRuntime.awrap(detail.runBlock());
 
           case 13:
             _iteratorNormalCompletion7 = true;
@@ -834,7 +838,7 @@ var StaticPipeline = (function () {
       var _iteratorError8 = undefined;
 
       try {
-        for (var _iterator8 = this._watcherMap[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+        for (var _iterator8 = _getIterator(this._watcherMap), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
           var _step8$value = _slicedToArray(_step8.value, 3);
 
           var task = _step8$value[0];
@@ -875,7 +879,7 @@ var StaticPipeline = (function () {
       var _iteratorError9 = undefined;
 
       try {
-        for (var _iterator9 = this._watchGlobMap[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+        for (var _iterator9 = _getIterator(this._watchGlobMap), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
           var _step9$value = _slicedToArray(_step9.value, 2);
 
           var taskName = _step9$value[0];

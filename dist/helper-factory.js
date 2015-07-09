@@ -1,10 +1,12 @@
 'use strict';
 
+var _Object$keys = require('babel-runtime/core-js/object/keys')['default'];
+
+var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _lodashObjectAssign = require('lodash/object/assign');
 
@@ -50,7 +52,7 @@ exports['default'] = function (assetMap, options) {
 
   if (opts.baseUrl) {
     newMap = {};
-    keys = Object.keys(assetMap);
+    keys = _Object$keys(assetMap);
     for (i = keys.length - 1; i >= 0; i--) {
       newMap[keys[i]] = opts.baseUrl + assetMap[keys[i]];
     }

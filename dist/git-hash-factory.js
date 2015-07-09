@@ -1,11 +1,13 @@
 'use strict';
 
+var _regeneratorRuntime = require('babel-runtime/regenerator')['default'];
+
+var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
 exports.parseGitHash = parseGitHash;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _bluebird = require('bluebird');
 
@@ -16,8 +18,6 @@ var _promisified = require('./promisified');
 var GIT_HASH_CMD = 'git log --pretty="format:%ct-%H" -n 1 -- ';
 var STAT_REGEX = /(\d+)-(\w+)/;
 var EXT_REGEX = /(?:\.[a-z0-9]+)?$/i;
-
-require('babel/polyfill');
 
 function parseGitHash(file) {
   return (0, _promisified.exec)('' + GIT_HASH_CMD + file).spread(function (stdout, stderr) {
@@ -68,9 +68,9 @@ exports['default'] = function (opts) {
       callback = _ref[1];
     }
 
-    return _bluebird2['default'].coroutine(regeneratorRuntime.mark(function callee$2$0() {
+    return _bluebird2['default'].coroutine(_regeneratorRuntime.mark(function callee$2$0() {
       var result, i, current, hash, hashedDest;
-      return regeneratorRuntime.wrap(function callee$2$0$(context$3$0) {
+      return _regeneratorRuntime.wrap(function callee$2$0$(context$3$0) {
         while (1) switch (context$3$0.prev = context$3$0.next) {
           case 0:
             if (!opts.disable) {

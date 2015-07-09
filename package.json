@@ -7,12 +7,12 @@
     "static-pipeline": "./bin/static-pipeline.js"
   },
   "scripts": {
-    "test": "babel-node --optional es7.asyncFunctions node_modules/mocha/bin/_mocha",
+    "test": "babel-node --optional=es7.asyncFunctions,runtime node_modules/mocha/bin/_mocha",
     "lint": "eslint bin lib test",
     "watch:lint": "onchange '**/.eslintrc' 'bin' 'lib' 'test' -- npm run --silent lint",
-    "watch:js": "babel --optional es7.asyncFunctions lib -w -d dist",
+    "watch:js": "babel --optional=es7.asyncFunctions,runtime lib -w -d dist",
     "build:reset": "rm -rfv dist && mkdir -pv dist",
-    "build": "npm run build:reset && babel --optional es7.asyncFunctions lib -d dist",
+    "build": "npm run build:reset && babel --optional=es7.asyncFunctions,runtime lib -d dist",
     "predev": "npm run build",
     "dev": "npm run watch:js & npm run watch:lint",
     "postinstall": "npm run build"
@@ -36,7 +36,8 @@
   },
   "homepage": "https://github.com/daiweilu/StaticPipeline",
   "dependencies": {
-    "babel": "5.6.14",
+    "babel": "5.6.15",
+    "babel-runtime": "5.6.15",
     "bluebird": "2.9.25",
     "chalk": "1.0.0",
     "chokidar": "1.0.1",

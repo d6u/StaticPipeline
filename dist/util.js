@@ -2,6 +2,10 @@
 
 'use strict';
 
+var _Object$keys = require('babel-runtime/core-js/object/keys')['default'];
+
+var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
@@ -10,8 +14,6 @@ exports.mkdir = mkdir;
 exports.writeFile = writeFile;
 exports.createLogger = createLogger;
 exports.throwError = throwError;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _path = require('path');
 
@@ -38,7 +40,7 @@ var _join = Array.prototype.join;
  */
 
 function resolveTaskDependencies(config, target) {
-  var tasks = Object.keys(config);
+  var tasks = _Object$keys(config);
   var remainingTasks = tasks.slice(0);
   var queue = [];
 

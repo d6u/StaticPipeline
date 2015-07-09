@@ -1,10 +1,14 @@
 'use strict';
 
+var _regeneratorRuntime = require('babel-runtime/regenerator')['default'];
+
+var _getIterator = require('babel-runtime/core-js/get-iterator')['default'];
+
+var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _path = require('path');
 
@@ -15,8 +19,6 @@ var _promisified = require('./promisified');
 var _errors = require('./errors');
 
 var EXT_REGEX = /(?:\.[a-z0-9]+)?$/i;
-
-require('babel/polyfill');
 
 /**
  * Translate file glob defination into objects with src, dest properties
@@ -45,7 +47,7 @@ require('babel/polyfill');
 exports['default'] = function callee$0$0(fileDef, opts) {
   var results, _sourceGlob, _srcs, baseDir, destDir, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, srcRelative, src, dest, sourceGlob, srcs;
 
-  return regeneratorRuntime.async(function callee$0$0$(context$1$0) {
+  return _regeneratorRuntime.async(function callee$0$0$(context$1$0) {
     while (1) switch (context$1$0.prev = context$1$0.next) {
       case 0:
         if (!fileDef.base) {
@@ -56,7 +58,7 @@ exports['default'] = function callee$0$0(fileDef, opts) {
         results = [];
         _sourceGlob = _path2['default'].resolve(opts.workingDir, fileDef.base, fileDef.src);
         context$1$0.next = 5;
-        return regeneratorRuntime.awrap((0, _promisified.glob)(_sourceGlob));
+        return _regeneratorRuntime.awrap((0, _promisified.glob)(_sourceGlob));
 
       case 5:
         _srcs = context$1$0.sent;
@@ -67,7 +69,7 @@ exports['default'] = function callee$0$0(fileDef, opts) {
         _iteratorError = undefined;
         context$1$0.prev = 11;
 
-        for (_iterator = _srcs[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (_iterator = _getIterator(_srcs); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           srcRelative = _step.value;
           src = _path2['default'].resolve(opts.workingDir, srcRelative);
           dest = src.replace(baseDir, destDir);
@@ -118,7 +120,7 @@ exports['default'] = function callee$0$0(fileDef, opts) {
       case 28:
         sourceGlob = _path2['default'].resolve(opts.workingDir, fileDef.src);
         context$1$0.next = 31;
-        return regeneratorRuntime.awrap((0, _promisified.glob)(sourceGlob));
+        return _regeneratorRuntime.awrap((0, _promisified.glob)(sourceGlob));
 
       case 31:
         srcs = context$1$0.sent;
