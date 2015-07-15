@@ -11,6 +11,8 @@ Object.defineProperty(exports, '__esModule', {
 });
 
 var FileNotFoundError = (function (_Error) {
+  _inherits(FileNotFoundError, _Error);
+
   function FileNotFoundError(file) {
     _classCallCheck(this, FileNotFoundError);
 
@@ -21,14 +23,14 @@ var FileNotFoundError = (function (_Error) {
     Error.captureStackTrace(this, FileNotFoundError);
   }
 
-  _inherits(FileNotFoundError, _Error);
-
   return FileNotFoundError;
 })(Error);
 
 exports.FileNotFoundError = FileNotFoundError;
 
 var AssetNotFoundError = (function (_Error2) {
+  _inherits(AssetNotFoundError, _Error2);
+
   function AssetNotFoundError(url) {
     _classCallCheck(this, AssetNotFoundError);
 
@@ -39,14 +41,14 @@ var AssetNotFoundError = (function (_Error2) {
     Error.captureStackTrace(this, AssetNotFoundError);
   }
 
-  _inherits(AssetNotFoundError, _Error2);
-
   return AssetNotFoundError;
 })(Error);
 
 exports.AssetNotFoundError = AssetNotFoundError;
 
 var TaskNotFoundError = (function (_Error3) {
+  _inherits(TaskNotFoundError, _Error3);
+
   function TaskNotFoundError(task) {
     _classCallCheck(this, TaskNotFoundError);
 
@@ -57,14 +59,14 @@ var TaskNotFoundError = (function (_Error3) {
     Error.captureStackTrace(this, TaskNotFoundError);
   }
 
-  _inherits(TaskNotFoundError, _Error3);
-
   return TaskNotFoundError;
 })(Error);
 
 exports.TaskNotFoundError = TaskNotFoundError;
 
 var CircularDependencyError = (function (_Error4) {
+  _inherits(CircularDependencyError, _Error4);
+
   function CircularDependencyError(tasks) {
     _classCallCheck(this, CircularDependencyError);
 
@@ -75,14 +77,14 @@ var CircularDependencyError = (function (_Error4) {
     Error.captureStackTrace(this, CircularDependencyError);
   }
 
-  _inherits(CircularDependencyError, _Error4);
-
   return CircularDependencyError;
 })(Error);
 
 exports.CircularDependencyError = CircularDependencyError;
 
 var ConfigNotFoundError = (function (_Error5) {
+  _inherits(ConfigNotFoundError, _Error5);
+
   function ConfigNotFoundError(configName) {
     _classCallCheck(this, ConfigNotFoundError);
 
@@ -92,8 +94,6 @@ var ConfigNotFoundError = (function (_Error5) {
     this.name = 'ConfigNotFoundError';
     Error.captureStackTrace(this, ConfigNotFoundError);
   }
-
-  _inherits(ConfigNotFoundError, _Error5);
 
   return ConfigNotFoundError;
 })(Error);
