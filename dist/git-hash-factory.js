@@ -46,21 +46,6 @@ function parseGitHash(file) {
  */
 
 exports['default'] = function (opts) {
-
-  /**
-   * @callback gitHashCallback
-   * @param {Error} err - Error data
-   * @param {Object} result - Result of gitHash
-   * @param {Object} result.hash - The hash value
-   * @param {Object} result.hashedDest - Dest path with hash appended
-   */
-
-  /**
-   * Parse git commit hash
-   * @param  {string|string[]} [files] - Single or multiple file path to read git commit hash
-   * @param  {gitHashCallback} callback - Called with finish
-   * @returns {Promise} Resolve/reject with the same arguments of gitHashCallback
-   */
   return function (files, callback) {
     if (!callback) {
       var _ref = [null, files];
@@ -155,5 +140,20 @@ exports['default'] = function (opts) {
     }))().nodeify(callback);
   };
 };
+
+/**
+ * @callback gitHashCallback
+ * @param {Error} err - Error data
+ * @param {Object} result - Result of gitHash
+ * @param {Object} result.hash - The hash value
+ * @param {Object} result.hashedDest - Dest path with hash appended
+ */
+
+/**
+ * Parse git commit hash
+ * @param  {string|string[]} [files] - Single or multiple file path to read git commit hash
+ * @param  {gitHashCallback} callback - Called with finish
+ * @returns {Promise} Resolve/reject with the same arguments of gitHashCallback
+ */
 
 // Prefix with exports for easy testing

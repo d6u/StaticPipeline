@@ -412,8 +412,6 @@ var StaticPipeline = (function () {
         }
       }, null, this, [[11, 58, 62, 70], [17, 23], [30, 41, 45, 53], [46,, 48, 52], [63,, 65, 69]]);
     }
-  }, {
-    key: '_dispatchTask',
 
     /**
      * @callback taskProcess
@@ -434,6 +432,8 @@ var StaticPipeline = (function () {
      * @param  {bool}        opts.isGlob   True is current file was retrieved from a glob pattern
      * @return {void}
      */
+  }, {
+    key: '_dispatchTask',
     value: function _dispatchTask(fileObj, taskProcess, opts) {
       var self, runBlock;
       return _regeneratorRuntime.async(function _dispatchTask$(context$2$0) {
@@ -483,8 +483,6 @@ var StaticPipeline = (function () {
         }
       }, null, this);
     }
-  }, {
-    key: '_processTask',
 
     /**
      * Actually invoke the taskProcess function.
@@ -496,6 +494,8 @@ var StaticPipeline = (function () {
      * @param  {Function}      opts.log     A log function with current task name as console prefix
      * @return {string[]|void}              A list of path to watch changes for. If processBlock emitted error, return undefined.
      */
+  }, {
+    key: '_processTask',
     value: function _processTask(fileObj, processBlock, opts) {
       var self, watchList, watched;
       return _regeneratorRuntime.async(function _processTask$(context$2$0) {
@@ -623,8 +623,6 @@ var StaticPipeline = (function () {
         }
       }, null, this);
     }
-  }, {
-    key: '_updateWatchTask',
 
     /**
      * Add / romove files to the watcher
@@ -637,6 +635,8 @@ var StaticPipeline = (function () {
      * @param  {bool}     opts.hasError If process block emit error, this will be true.
      * @return {void}
      */
+  }, {
+    key: '_updateWatchTask',
     value: function _updateWatchTask(taskName, fileKey, files, runBlock, opts) {
 
       if (!this._watcherMap.has(taskName, fileKey)) {
@@ -720,8 +720,6 @@ var StaticPipeline = (function () {
         this._watcherMap.get(taskName, fileKey).files = files;
       }
     }
-  }, {
-    key: '_updateGlobWatchTask',
 
     /**
      * Update the map for glob watcher.
@@ -730,6 +728,8 @@ var StaticPipeline = (function () {
      * @param  {Function} processBlock The original process function defined by user
      * @return {void}
      */
+  }, {
+    key: '_updateGlobWatchTask',
     value: function _updateGlobWatchTask(taskName, fileObj, processBlock) {
       var globPattern = _path2['default'].resolve(this.opts.workingDir, fileObj.base, fileObj.src);
 
@@ -930,10 +930,10 @@ var StaticPipeline = (function () {
 
       this._assetMap[url] = hashedUrl;
     }
-  }, {
-    key: '_makeAssetHelper',
 
     // We need this method because helper-factory can be required independently
+  }, {
+    key: '_makeAssetHelper',
     value: function _makeAssetHelper() {
 
       // Remove baseUrl option, because we already set them when `_setAsset`
